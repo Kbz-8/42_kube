@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/31 18:07:33 by vvaas            ###   ########.fr        #
+#    Updated: 2023/07/31 21:08:31 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 CC		= clang
 CFLAGS	= -Wall -Wextra -Werror -I third_party/libft -I includes
-CLIBS	= third_party/libft/libft.a -lm
+CLIBS	= third_party/libft/libft.a third_party/mlx/libmlx.so -lm `~/.xmake/packages/l/libsdl/2.28.1/afb2b93309a64808b8a666e3ffc1a405/bin/sdl2-config --cflags --libs`
 
 DEBUG		?= false
 MODE		=  "release"
@@ -44,10 +44,13 @@ $(OBJ_DIR)/%.o: %.c
 	@echo "\e[1;32m[compiling "$(MODE)" {"$(CC)"}...]\e[1;00m "$<
 	@$(CC) $(CFLAGS) $(COPTS) -c $< -o $@
 
-all:		libft $(NAME)
+all:		libft mlx $(NAME)
 
 libft:
 	@make -C third_party/libft
+
+mlx:
+	@make -C third_party/mlx
 
 $(NAME):	$(OBJ_DIR) $(OBJS)
 	@echo "\e[1;32m[linking   "$(MODE)" {"$(CC)"}...]\e[1;00m "$@
@@ -68,4 +71,4 @@ re:			fclean all
 norminette:
 	@norminette | grep Error | wc -l
 
-.PHONY:		all clean fclean re norminette libft 
+.PHONY:		all clean fclean re norminette libft mlx

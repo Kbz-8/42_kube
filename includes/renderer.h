@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 18:02:04 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:24:36 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ typedef struct	s_textures_files
 
 typedef struct	s_textures
 {
-	const char	*north;
-	const char	*south;
-	const char	*west;
-	const char	*est;
+	void	*north;
+	void	*south;
+	void	*west;
+	void	*est;
 }	t_textures;
 
 typedef struct	s_color
