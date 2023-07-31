@@ -1,0 +1,7 @@
+*.swp
+*.swx
+*.o
+*.a
+.vscode/
+caca
+prout
