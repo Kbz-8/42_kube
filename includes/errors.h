@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:31 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 18:02:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:13:23 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define E_MEMFAIL			1
 # define E_TOO_MANY_ARGS	2
 # define E_NAME				3
+# define E_NO_ARGS			4
 
 enum	e_type
 {
