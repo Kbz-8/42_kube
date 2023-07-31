@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 17:22:31 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 18:02:51 by vvaas            ###   ########.fr       */
+/*   Created: 2023/07/31 18:05:08 by vvaas             #+#    #+#             */
+/*   Updated: 2023/07/31 18:06:49 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PARSER_H
+# define PARSER_H
 
-#ifndef ERRORS_H
-# define ERRORS_H
-
-# define E_UNKOWN			0
-# define E_MEMFAIL			1
-# define E_TOO_MANY_ARGS	2
-# define E_NAME				3
-
-enum	e_type
-{
-	ERROR,
-	FATAL_ERROR
-};
-
-void	report(enum e_type type, int error);
+void	parse(int ac, char **av);
 
 #endif

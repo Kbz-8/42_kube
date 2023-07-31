@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:46 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:37:45 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:02:33 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 #include <libft.h>
 #include <memory.h>
 
-#define ERRORS_NUMBER 3
+#define ERRORS_NUMBER 4
 
 static const char	*get_str_error(int error)
 {
 	static const char	*errors[ERRORS_NUMBER] = {
 		"unknown error",
 		"memory allocation failed",
-		"too many arguments"
+		"too many arguments",
+		"invalid map name"
 	};
 
 	return (errors[error]);

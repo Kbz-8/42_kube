@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maldavid <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/31 17:24:41 by maldavid         ###   ########.fr        #
+#    Updated: 2023/07/31 18:07:33 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME	= ./cub3D
 SRCS	=	srcs/core/main.c  \
 			srcs/core/errors.c \
 			srcs/core/memory.c  \
+			srcs/parser/parse.c \
 
 OBJ_DIR	= objs
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
