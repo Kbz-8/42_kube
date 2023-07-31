@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 16:50:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:38:06 by maldavid         ###   ########.fr       */
+/*   Created: 2023/07/31 17:39:45 by maldavid          #+#    #+#             */
+/*   Updated: 2023/07/31 17:56:34 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <memory.h>
 
-int	main(int ac, char **av)
+t_renderer	*init_renderer(t_textures *textures, t_world *world)
 {
-	(void)ac;
-	(void)av;
+	t_renderer	*renderer;
 
-	ft_printf("caca prout mdr\n");
-	return (0);
+	renderer = alloc(sizeof(t_renderer));
+	renderer->textures
+	return (renderer);
 }

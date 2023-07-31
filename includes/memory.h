@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   memory.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 16:50:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:38:06 by maldavid         ###   ########.fr       */
+/*   Created: 2023/07/31 17:22:37 by maldavid          #+#    #+#             */
+/*   Updated: 2023/07/31 17:22:39 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <memory.h>
+#ifndef MEMORY_H
+# define MEMORY_H
 
-int	main(int ac, char **av)
+# include <stddef.h>
+
+typedef struct s_block
 {
-	(void)ac;
-	(void)av;
+	void			*ptr;
+	struct s_block	*next;
+}	t_block;
 
-	ft_printf("caca prout mdr\n");
-	return (0);
-}
+void	*alloc(size_t size);
+void	*realloc_but_not_the_std_lib(void *ptr, size_t size);
+void	dealloc(void *ptr);
+void	allfree(void);
+
+#endif

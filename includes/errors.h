@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 16:50:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:38:06 by maldavid         ###   ########.fr       */
+/*   Created: 2023/07/31 17:22:31 by maldavid          #+#    #+#             */
+/*   Updated: 2023/07/31 17:26:40 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <memory.h>
 
-int	main(int ac, char **av)
+#ifndef ERRORS_H
+# define ERRORS_H
+
+# define E_UNKOWN			0
+# define E_MEMFAIL			1
+# define E_TOO_MANY_ARGS	3
+
+enum	e_type
 {
-	(void)ac;
-	(void)av;
+	ERROR,
+	FATAL_ERROR
+};
 
-	ft_printf("caca prout mdr\n");
-	return (0);
-}
+void	report(enum e_type type, int error);
+
+#endif

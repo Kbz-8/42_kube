@@ -6,14 +6,16 @@
 #    By: maldavid <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/31 16:51:39 by maldavid         ###   ########.fr        #
+#    Updated: 2023/07/31 17:24:41 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	= ./cub3D
 
-SRCS	=	srcs/core/main.c \
+SRCS	=	srcs/core/main.c  \
+			srcs/core/errors.c \
+			srcs/core/memory.c  \
 
 OBJ_DIR	= objs
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
