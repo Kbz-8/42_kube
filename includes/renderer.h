@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 18:24:36 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:18:39 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,21 @@ typedef struct	s_world
 	const char	**map;
 }	t_world;
 
+typedef struct s_platform
+{
+	void	*mlx;
+	void	*win;
+}	t_platform;
+
 typedef struct	s_renderer
 {
 	t_textures	*textures;
 	t_world		*world;
+	t_platform	*plat;
 }	t_renderer;
 
 t_renderer	*init_renderer(t_textures_files *textures, t_world *world);
 void		render(t_renderer *renderer);
+void		destroy_renderer(t_renderer *renderer);
 
 #endif
