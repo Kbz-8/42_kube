@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:52 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:22:54 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:24:11 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*alloc(size_t size)
 		report(FATAL_ERROR, E_MEMFAIL);
 	block->next = *get_blocks();
 	block->ptr = malloc(size + 1);
+	block->size = size + 1;
 	if (block->ptr == NULL)
 		report(FATAL_ERROR, E_MEMFAIL);
 	ft_memset(block->ptr, 0, size + 1);
@@ -41,15 +42,19 @@ void	*alloc(size_t size)
 void	*realloc_but_not_the_std_lib(void *ptr, size_t size)
 {
 	t_block	*buf;
+	void	*tmp;
 
 	buf = *get_blocks();
 	while (buf != NULL)
 	{
 		if (buf->ptr == ptr)
 		{
-			buf->ptr = realloc(buf->ptr, size);
-			if (buf->ptr == NULL)
+			tmp = malloc(size);
+			if (tmp == NULL)
 				report(FATAL_ERROR, E_MEMFAIL);
+			ft_memcpy(tmp, ptr, buf->size);
+			free(buf->ptr);
+			buf->ptr = tmp;
 			return (buf->ptr);
 		}
 		buf = buf->next;

@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:22:39 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:23:37 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_block
 {
 	void			*ptr;
 	struct s_block	*next;
+	size_t			size;
 }	t_block;
 
 void	*alloc(size_t size);
