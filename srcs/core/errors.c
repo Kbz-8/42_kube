@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:46 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 18:14:19 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/31 21:36:35 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <memory.h>
 
-#define ERRORS_NUMBER 5
+#define ERRORS_NUMBER 6
 
 static const char	*get_str_error(int error)
 {
@@ -24,7 +24,8 @@ static const char	*get_str_error(int error)
 		"memory allocation failed",
 		"too many arguments",
 		"invalid map name",
-		"no argument given"
+		"no argument given",
+		"argument is not a file"
 	};
 
 	return (errors[error]);

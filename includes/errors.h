@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:31 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 18:13:23 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/31 21:36:22 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define E_TOO_MANY_ARGS	2
 # define E_NAME				3
 # define E_NO_ARGS			4
+# define NO_FILE			5
 
 enum	e_type
 {
