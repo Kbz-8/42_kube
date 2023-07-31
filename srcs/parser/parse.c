@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 16:50:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:25 by vvaas            ###   ########.fr       */
+/*   Created: 2023/07/31 17:31:31 by vvaas             #+#    #+#             */
+/*   Updated: 2023/07/31 17:59:29 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <memory.h>
+#include <stdbool.h>
+#include"../../third_party/libft/libft.h"
 
-int	main(int ac, char **av)
+bool	parse(int *ac, char **av)
 {
-	if (!parse(ac, av))
-		return (1);
-	(void)av;
-
-	ft_printf("caca prout mdr\n");
-	return (0);
+	if (ac != 2)
+		return (0);
+	if (ft_strlen(av[1]) == 0)
+		return (0);
+	if (ft_strcmp(ft_strchr(av[1], '.'), ".cub") != 0)
+		return (0);
+	if (ft_strlen(ft_strchr(av[1], '.')) != 5)
+		return (0);
+	return (1);
 }
