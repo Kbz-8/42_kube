@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/01 08:38:41 by maldavid         ###   ########.fr        #
+#    Updated: 2023/08/01 10:37:26 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS	=	srcs/core/main.c  \
 			srcs/core/errors.c \
 			srcs/core/input.c  \
 			srcs/core/memory.c  \
+			srcs/core/player.c  \
 			srcs/core/application.c  \
 			srcs/parser/parse.c  \
 			srcs/renderer/init.c  \
