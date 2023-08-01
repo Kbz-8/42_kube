@@ -6,12 +6,14 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/31 21:18:39 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/01 07:43:05 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDERER_H
 # define RENDERER_H
+
+# include <stdint.h>
 
 typedef struct	s_textures_files
 {
@@ -38,9 +40,9 @@ typedef struct	s_color
 
 typedef struct	s_world
 {
-	t_color		ceiling;
-	t_color		floor;
-	const char	**map;
+	t_color	ceiling;
+	t_color	floor;
+	uint8_t	**map;
 }	t_world;
 
 typedef struct s_platform
