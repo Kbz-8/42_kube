@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:31:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/31 22:34:57 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/01 02:53:11 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ void	name_parse(char **av)
 
 void	parse(int ac, char **av)
 {
-	char **file;
+//	char **file;
 
 	if (ac == 1)
 		report(FATAL_ERROR, E_NO_ARGS);
 	if (ac != 2)
 		report(FATAL_ERROR, E_TOO_MANY_ARGS);
 	name_parse(av);
-	file = get_file(av);
+//	file = get_file(av);
 }
