@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:08:41 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/01 08:16:49 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:44:56 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float deg_to_rad(int a)
 {
-	return (a * 0.017453292519943f);
+	return (a * M_PI / 180);
 }
 
 int fix_ang(int a)

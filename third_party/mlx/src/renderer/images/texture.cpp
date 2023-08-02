@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 18:03:35 by maldavid          #+#    #+#             */
-/*   Updated: 2023/04/24 14:46:26 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:53:18 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,21 @@
 #include <renderer/images/texture.h>
 #include <renderer/buffers/vk_buffer.h>
 #include <renderer/renderer.h>
+#include <cstring>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#include <iostream>
+
 namespace mlx
 {
-	void Texture::create(uint8_t* pixels, uint32_t width, uint32_t height, VkFormat format, bool enable_mapping)
+	void Texture::create(uint8_t* pixels, uint32_t width, uint32_t height, VkFormat format)
 	{
-		if(enable_mapping)
-		{
-			#ifdef DEBUG
-				core::error::report(e_kind::message, "Texture : creating CPU mappable texture");
-			#endif
-			Image::create(width, height, format, VK_IMAGE_TILING_LINEAR,
-				VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-				{
-					VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
-					VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT
-				}
-			);
-		}
-		else
-		{
-			#ifdef DEBUG
-				core::error::report(e_kind::message, "Texture : creating non CPU mappable texture");
-			#endif
-			Image::create(width, height, format, VK_IMAGE_TILING_OPTIMAL,
-				VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-				{ VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT }
-			);
-		}
+		Image::create(width, height, format, VK_IMAGE_TILING_OPTIMAL,
+			VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+			{ VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT }
+		);
 
 		Image::createImageView(VK_IMAGE_VIEW_TYPE_2D, VK_IMAGE_ASPECT_COLOR_BIT);
 		Image::createSampler();
@@ -71,47 +55,55 @@ namespace mlx
 		}
 	}
 
-	void* Texture::openCPUmap()
+	void Texture::setPixel(int x, int y, uint32_t color) noexcept
 	{
-		if(_cpu_map != nullptr)
-			return _cpu_map;
+		if(x < 0 || y < 0 || x > getWidth() || y > getHeight())
+			return;
+		if(_map == nullptr)
+			openCPUmap();
+		_cpu_map[(y * getWidth()) + x] = color;
+		_has_been_modified = true;
+	}
+
+	int Texture::getPixel(int x, int y) noexcept
+	{
+		if(x < 0 || y < 0 || x > getWidth() || y > getHeight())
+			return 0;
+		if(_map == nullptr)
+			openCPUmap();
+		uint32_t color = _cpu_map[(y * getWidth()) + x];
+		return (color);
+	}
+
+	void Texture::openCPUmap()
+	{
+		if(_map != nullptr)
+			return;
 
 		#ifdef DEBUG
 			core::error::report(e_kind::message, "Texture : enabling CPU mapping");
 		#endif
 
-		Buffer staging_buffer;
 		std::size_t size = getWidth() * getHeight() * formatSize(getFormat());
-		staging_buffer.create(Buffer::kind::dynamic, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT, nullptr);
-		Image::copyToBuffer(staging_buffer);
-
-		this->destroy();
-		this->create(nullptr, getWidth(), getHeight(), getFormat(), true);
-
-		Image::copyFromBuffer(staging_buffer);
-		staging_buffer.destroy();
-
-		if(vkMapMemory(Render_Core::get().getDevice().get(), getDeviceMemory(), 0, VK_WHOLE_SIZE, 0, &_cpu_map) != VK_SUCCESS)
-		{
-			_buf_map.emplace();
-			_buf_map->create(Buffer::kind::dynamic, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT);
-			Image::copyToBuffer(*_buf_map);
-			_buf_map->mapMem(&_cpu_map);
-			#ifdef DEBUG
-				core::error::report(e_kind::message, "Texture : mapped CPU memory using staging buffer");
-			#endif
-		}
+		_buf_map.emplace();
+		_buf_map->create(Buffer::kind::dynamic, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT);
+		Image::copyToBuffer(*_buf_map);
+		_buf_map->mapMem(&_map);
+		_cpu_map = std::vector<uint32_t>(getWidth() * getHeight(), 0);
+		std::memcpy(_cpu_map.data(), _map, size);
 		#ifdef DEBUG
-			else
-				core::error::report(e_kind::message, "Texture : mapped CPU memory using direct memory mapping");
+			core::error::report(e_kind::message, "Texture : mapped CPU memory using staging buffer");
 		#endif
-		return _cpu_map;
 	}
 
 	void Texture::render(Renderer& renderer, int x, int y)
 	{
-		if(_buf_map.has_value())
+		if(_has_been_modified)
+		{
+			std::memcpy(_map, _cpu_map.data(), _cpu_map.size() * formatSize(getFormat()));
 			Image::copyFromBuffer(*_buf_map);
+			_has_been_modified = false;
+		}
 		auto cmd = renderer.getActiveCmdBuffer().get();
 		_vbo.bind(renderer);
 		_ibo.bind(renderer);

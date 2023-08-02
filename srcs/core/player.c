@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 10:02:35 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/01 10:28:02 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:28:02 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	init_player(t_player *player)
 {
-	player->pos.x = 4;
-	player->pos.y = 3;
-	player->dir.x = 0;
-	player->dir.y = 0;
+	player->pos.x = 150;
+	player->pos.y = 400;
+	player->dir.x = 1;
+	player->dir.y = 1;
+	player->left.x = -player->dir.y;
+	player->left.y = player->dir.x;
+	player->angle = 90;
 }

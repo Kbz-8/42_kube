@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/01 07:43:05 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:52:51 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define RENDERER_H
 
 # include <stdint.h>
+# include <player.h>
+# include <utils.h>
 
 typedef struct	s_textures_files
 {
@@ -59,7 +61,9 @@ typedef struct	s_renderer
 }	t_renderer;
 
 t_renderer	*init_renderer(t_textures_files *textures, t_world *world);
-void		render(t_renderer *renderer);
+void		render(t_renderer *renderer, t_player *player);
 void		destroy_renderer(t_renderer *renderer);
+
+void draw_line(t_renderer *renderer, t_vec2 v1, t_vec2 v2, int color);
 
 #endif
