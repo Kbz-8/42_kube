@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/02 13:35:32 by maldavid         ###   ########.fr        #
+#    Updated: 2023/08/04 16:29:14 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,17 @@ CC		= clang
 CFLAGS	= -Wall -Wextra -Werror -I third_party/libft -I includes -I third_party/mlx/includes
 CLIBS	= third_party/libft/libft.a third_party/mlx/libmlx.so -lm `~/.xmake/packages/l/libsdl/2.28.1/afb2b93309a64808b8a666e3ffc1a405/bin/sdl2-config --cflags --libs` -lSDL2
 
+BONUS		?= false
 DEBUG		?= false
 MODE		=  "release"
 TOOLCHAIN	?= clang
 
 ifeq ($(TOOLCHAIN), gcc)
 	CC = gcc
+endif
+
+ifeq ($(BONUS), true)
+	CFLAGS += -D BONUS
 endif
 
 ifeq ($(DEBUG), true)
