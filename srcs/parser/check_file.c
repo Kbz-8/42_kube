@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 21:02:06 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/06 23:25:52 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 
 t_textures_files	*get_textures_path(char **file);
 
+bool	in_order(char **file)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	while (is_texture_name(file[i]))
+		i++;
+	return (is_a_map(&file[i]));
+}
+
 void	check_texture_amount(t_parse *texture)
 {
 	if (texture->N_textures != 1 || texture->S_textures != 1)
@@ -27,16 +39,6 @@ void	check_texture_amount(t_parse *texture)
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 	if (texture->C_color != 1 || texture->F_color != 1)
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
-}
-
-char	*jump_space(char *path)
-{
-	int i;
-
-	i = 0;
-	while (path && path[i] && path[i] == ' ')
-		i++;
-	return (&path[i]);
 }
 
 void	texture_path(t_parse *texture, char **file)
@@ -59,9 +61,8 @@ void	texture_path(t_parse *texture, char **file)
 		if (ft_strncmp(jump_space(file[i]), "C", 1) == 0)
 			texture->C_color++;
 	i++;
-	check_texture_amount(texture);
-
 	}
+	check_texture_amount(texture);
 }
 
 bool	check_file(char **file)

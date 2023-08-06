@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:05:08 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 21:03:29 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/06 23:20:38 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,16 @@ typedef struct s_parse
 }	t_parse;
 
 # include <renderer.h>
+# include <stdbool.h>
 
 void				parse(int ac, char **av);
 t_textures_files	*get_textures_path(char **file);
+t_world				*create_world(char **file);
 char				**get_file(char **av);
+bool				check_file(char **file);
+char				*fetch_line(char **file, char *target);
+char				*fetch_path(char *line);
+char				*jump_space(char *path);
+bool				is_texture_name(char *str);
+bool				is_a_map(char **file);
 #endif
