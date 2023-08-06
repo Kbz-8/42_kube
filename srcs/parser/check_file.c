@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 20:16:50 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/06 20:24:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 #include <memory.h>
 #include <libft.h>
 #include <parser.h>
+#include <errors.h>
 
-void	texture_path(t_parse *texture, char **file, int i)
+void	texture_path(t_parse *texture, char **file)
 {
+	int i;
+
+	i = 0;
 	ft_memset(texture, 0, sizeof(t_parse));
 	while (file[i])
 	{
@@ -39,15 +43,12 @@ void	texture_path(t_parse *texture, char **file, int i)
 bool	check_file(char **file)
 {
 	int		i;
-	t_parse	*texture_list;
+	t_parse	texture_list;
 
 	i = 0;
 	while (file[i][0] == '\n' && file[i][0] != '\0')
 		file[i++][0] = ' ';
 	i = 0;
-	while (file[i])
-	{
-		texture_path(texture_list, file, i);
-		i++;
-	}
+	texture_path(&texture_list, file);
+	return (true);
 }
