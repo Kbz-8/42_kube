@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/04 16:29:27 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/06 20:55:48 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_textures_files
 	const char	*north;
 	const char	*south;
 	const char	*west;
-	const char	*est;
+	const char	*east;
 }	t_textures_files;
 
 typedef struct	s_textures
@@ -30,7 +30,7 @@ typedef struct	s_textures
 	void	*north;
 	void	*south;
 	void	*west;
-	void	*est;
+	void	*east;
 }	t_textures;
 
 typedef struct	s_color

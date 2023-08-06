@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 20:24:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/06 21:02:06 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,52 @@
 #include <libft.h>
 #include <parser.h>
 #include <errors.h>
+#include <renderer.h>
 
-void	texture_path(t_parse *texture, char **file)
+t_textures_files	*get_textures_path(char **file);
+
+void	check_texture_amount(t_parse *texture)
+{
+	if (texture->N_textures != 1 || texture->S_textures != 1)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+	if (texture->E_textures != 1 || texture->W_textures != 1)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+	if (texture->C_color != 1 || texture->F_color != 1)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+}
+
+char	*jump_space(char *path)
 {
 	int i;
 
 	i = 0;
+	while (path && path[i] && path[i] == ' ')
+		i++;
+	return (&path[i]);
+}
+
+void	texture_path(t_parse *texture, char **file)
+{
+	int i;
+	i = 0;
 	ft_memset(texture, 0, sizeof(t_parse));
 	while (file[i])
 	{
-		if (ft_strncmp(file[i], "NO", 2) == 0)
+		if (ft_strncmp(jump_space(file[i]), "NO", 2) == 0)
 			texture->N_textures++;
-		if (ft_strncmp(file[i], "SO", 2) == 0)
+		if (ft_strncmp(jump_space(file[i]), "SO", 2) == 0)
 			texture->S_textures++;
-		if (ft_strncmp(file[i], "WE", 2) == 0)
+		if (ft_strncmp(jump_space(file[i]), "WE", 2) == 0)
 			texture->W_textures++;
-		if (ft_strncmp(file[i], "EA", 2) == 0)
+		if (ft_strncmp(jump_space(file[i]), "EA", 2) == 0)
 			texture->E_textures++;
-		if (ft_strncmp(file[i], "F", 1) == 0)
+		if (ft_strncmp(jump_space(file[i]), "F", 1) == 0)
 			texture->F_color++;
-		if (ft_strncmp(file[i], "C", 1) == 0)
+		if (ft_strncmp(jump_space(file[i]), "C", 1) == 0)
 			texture->C_color++;
 	i++;
+	check_texture_amount(texture);
+
 	}
 }
 

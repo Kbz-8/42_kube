@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/06 20:18:59 by vvaas            ###   ########.fr        #
+#    Updated: 2023/08/06 20:46:39 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS	=	srcs/core/main.c  \
 			srcs/core/application.c  \
 			srcs/parser/parse.c  \
 			srcs/parser/check_file.c  \
+			srcs/parser/get_path.c  \
 			srcs/renderer/init.c  \
 			srcs/renderer/render.c  \
 			srcs/utils/maths.c \

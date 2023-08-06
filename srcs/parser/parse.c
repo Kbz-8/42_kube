@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:31:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/01 02:53:11 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:25:48 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,15 @@ char	**get_file(char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		report(FATAL_ERROR, NO_FILE);
-	buffer = alloc(sizeof(char) * 2);
-	while (read(fd, &buffer[i], 1) != 0)
-	{
-		buffer[i++ + 1] = '\0';
-		buffer = realloc_but_not_the_std_lib(buffer, ft_strlen(buffer) + 3);
-	}
-	file = alloc(sizeof(char *) * (ft_charcount(buffer, '\n') + 2));
-	dealloc(buffer);
+	buffer = get_next_line(fd);
+	while (buffer)
+		buffer = ft_strjoin(buffer, get_next_line(fd));
+	file = alloc(sizeof(char *) * (ft_charcount(buffer, '\n') + 1));
 	close(fd);
 	fd = open(av[1], O_RDONLY);
-	i = 0;
 	file[i] = get_next_line(fd);
 	while (file[i])
 		file[++i] = get_next_line(fd);
-	file[i + 1] = NULL;
 	close(fd);
 	return (file);
 }
