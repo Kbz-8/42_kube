@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 03:31:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/02 19:15:40 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:45:04 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,57 @@
 #include <stdbool.h>
 #include <utils.h>
 
-void	draw_vert_line(t_renderer *renderer, t_vec2 pos, int h, int color)
+#ifdef BONUS
+static const bool minimap = true;
+#else
+static const bool minimap = false;
+#endif
+
+void draw_line(t_renderer *renderer, t_vec2 v0, t_vec2 v1, int color)
 {
-	while (pos.y < h)
+	float tmp;
+	bool steep = false;
+	if (fabsf(v0.x - v1.x) < fabsf(v0.y - v1.y))
 	{
-		mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, pos.x, pos.y, \
+		tmp = v0.x; v0.x = v0.y; v0.y = tmp;
+		tmp = v1.x; v1.x = v1.y; v1.y = tmp;
+		steep = true;
+	}
+	if (v0.x > v1.x)
+	{
+		tmp = v0.x; v0.x = v1.x; v1.x = tmp;
+		tmp = v0.y; v0.y = v1.y; v1.y = tmp;
+	}
+	int dx = v1.x - v0.x;
+	int dy = v1.y - v0.y;
+	float derror = fabsf(dy / (float)dx);
+	float error = 0;
+	int y = v0.y;
+	for(int x = v0.x; x <= v1.x; x++)
+	{
+		if (steep)
+			mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, y, x, color);
+		else
+			mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, x, y, color);
+		error += derror;
+		if (error > 0.5f)
+		{
+			y += (v1.y > v0.y ? 1 : -1);
+			error -= 1.0f;
+		}
+	}
+}
+
+static void	draw_vert_line(t_renderer *renderer, t_vec2 pos, int h, int color)
+{
+	int	i;
+
+	i = pos.y;
+	while (i < pos.y + h)
+	{
+		mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, pos.x, i, \
 						color);
-		pos.y++;
+		i++;
 	}
 }
 
@@ -40,7 +84,7 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 
 	ra = fix_ang(player->angle + 30);
 
-	for(r = 0; r < 60; r++)
+	for(r = 0; r < 156; r++)
 	{
 		dof = 0;
 		disV = 100000;
@@ -148,13 +192,40 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 			draw_vert_line(renderer, origin, lineH, color);
 		}
 
-		ra = fix_ang(ra - 1);
+		ra = fix_ang(ra - 0.5f);
 	}
 }
 
 void	render(t_renderer *renderer, t_player *player)
 {
 	mlx_clear_window(renderer->plat->mlx, renderer->plat->win);
+	int xo, yo;
+	int color;
 	drawRays2D(renderer, player);
+	if (minimap)
+	{
+		for(int y = 0; y < 8; y++)
+		{
+			for(int x = 0; x < 8; x++)
+			{
+				if(renderer->world->map[x][y] == 1)
+					color = 0x00444444;
+				else
+					color = 0x00FFFFFF;
+				xo = x * 10;
+				yo = y * 10;
+				for(int i = xo; i < 10 + xo; i++)
+				{
+					for(int j = yo; j < 10 + yo; j++)
+						mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, j, i, color);
+				}
+			}
+		}
+		for(int i = player->pos.x / 7; i < player->pos.x / 7 + 4; i++)
+		{
+			for(int j = player->pos.y / 7; j < player->pos.y / 7 + 4; j++)
+				mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, i, j, 0x00FF0000);
+		}
+	}
 }
 
