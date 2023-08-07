@@ -1,4 +1,4 @@
-# 42_kube by maldavid and vvaas
+# 42_kube by maldavid and vavaas
 kube ? ;)
 
 -----TODO-----
@@ -6,3 +6,5 @@ kube ? ;)
 Check pas si la map est fermée
 
 Check pas la validité des path/couleurs
+
+Vavaas : ne plus être mauvais
