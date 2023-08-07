@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:43:56 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 23:29:32 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/07 03:13:53 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 #include <libft.h>
 #include <memory.h>
 
-uint8_t	**convert_map(char **file)
+static uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
+	*size_y = 0;
 	while (file[i])
 	{
+		*size_x = 0;
 		while (file[i][j])
 		{
 			if (file[i][j] == ' ')
@@ -31,14 +33,16 @@ uint8_t	**convert_map(char **file)
 			if (file[i][j] == '\n')
 				file[i][j] = 0;
 			j++;
+			(*size_x)++;
 		}
 		j = 0;
 		i++;
+		(*size_y)++;
 	}
 	return ((uint8_t **)file);
 }
 
-uint8_t	**get_map(char **file)
+uint8_t	**get_map(char **file, size_t *size_x, size_t *size_y)
 {
 	int i;
 
@@ -47,7 +51,7 @@ uint8_t	**get_map(char **file)
 	while (is_texture_name(file[i]))
 		i++;
 	is_a_map(&file[i]);
-	return (convert_map(&file[i]));
+	return (convert_map(&file[i], size_x, size_y));
 	
 }
 
@@ -71,6 +75,6 @@ t_world	*create_world(char **file)
 
 	world = alloc(sizeof(t_world));
 	get_colors(&world->floor, &world->ceiling, file);
-	world->map = get_map(file);
+	world->map = get_map(file, &world->map_x_size, &world->map_y_size);
 	return (world);
 }

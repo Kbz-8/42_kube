@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 03:31:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/04 16:45:04 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/07 03:46:05 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 	t_vec2 v;
 	t_vec2 m;
 	t_vec2 o;
+	t_vec2 s;
 
+	s.x = renderer->world->map_x_size;
+	s.y = renderer->world->map_y_size;
 	ra = fix_ang(player->angle + 30);
 
 	for(r = 0; r < 156; r++)
@@ -100,23 +103,23 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 		{
 			rv.x = (((int)player->pos.x >> 6) << 6) - 0.0001;
 			rv.y = (player->pos.x - rv.x) * Tan + player->pos.y;
-			o.x = -64;
+			o.x = -(64);
 			o.y = -o.x * Tan;
 		}
 		else
 		{
 			rv.x = player->pos.x;
 			rv.y = player->pos.y;
-			dof = 8;
+			dof = s.x;
 		}
 
-		while(dof < 8)
+		while(dof < s.x)
 		{
 			m.x = (int)(rv.x) >> 6;
 			m.y = (int)(rv.y) >> 6;
-			if(m.x >= 0 && m.x < 8 && m.y >= 0 && m.y < 8 && renderer->world->map[(int)m.y][(int)m.x] == 1)
+			if(m.x >= 0 && m.x < s.x && m.y >= 0 && m.y < s.y && renderer->world->map[(int)m.y][(int)m.x] == '1')
 			{
-				dof = 8;
+				dof = s.x;
 				disV = cos(deg_to_rad(ra)) * (rv.x - player->pos.x) - sin(deg_to_rad(ra)) * (rv.y - player->pos.y);
 			}
 			else
@@ -136,7 +139,7 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 		{
 			rv.y = (((int)player->pos.y >> 6) << 6) - 0.0001;
 			rv.x =(player->pos.y - rv.y) * Tan + player->pos.x;
-			o.y = -64;
+			o.y = -(64);
 			o.x = -o.y * Tan;
 		}
 		else if(sin(deg_to_rad(ra)) < -0.001)
@@ -150,16 +153,16 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 		{
 			rv.x = player->pos.x;
 			rv.y = player->pos.y;
-			dof = 8;
+			dof = s.y;
 		}
 
-		while(dof < 8)
+		while(dof < s.y)
 		{
 			m.x = (int)(rv.x) >> 6;
 			m.y = (int)(rv.y) >> 6;
-			if(m.x >= 0 && m.x < 8 && m.y >= 0 && m.y < 8 && renderer->world->map[(int)m.y][(int)m.x] == 1)
+			if(m.x >= 0 && m.x < s.x && m.y >= 0 && m.y < s.y && renderer->world->map[(int)m.y][(int)m.x] == '1')
 			{
-				dof = 8;
+				dof = s.y;
 				disH = cos(deg_to_rad(ra)) * (rv.x - player->pos.x) - sin(deg_to_rad(ra)) * (rv.y - player->pos.y);
 			}
 			else
@@ -181,7 +184,7 @@ static void drawRays2D(t_renderer *renderer, t_player *player)
 
 		int ca = fix_ang(player->angle - ra);
 		disH = disH * cos(deg_to_rad(ca));
-		int lineH = (64 * 720) / (disH);
+		int lineH = ((64) * 720) / (disH);
 		if(lineH > 720)
 			lineH = 720;
 		int lineOff = 360 - (lineH >> 1);
@@ -204,11 +207,11 @@ void	render(t_renderer *renderer, t_player *player)
 	drawRays2D(renderer, player);
 	if (minimap)
 	{
-		for(int y = 0; y < 8; y++)
+		for(int y = 0; y < renderer->world->map_y_size; y++)
 		{
-			for(int x = 0; x < 8; x++)
+			for(int x = 0; x < renderer->world->map_x_size; x++)
 			{
-				if(renderer->world->map[x][y] == 1)
+				if(renderer->world->map[x][y] == '1')
 					color = 0x00444444;
 				else
 					color = 0x00FFFFFF;

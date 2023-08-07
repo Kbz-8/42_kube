@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 23:25:52 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/07 02:49:14 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_textures_files	*get_textures_path(char **file);
 bool	in_order(char **file)
 {
 	int i;
-	int count;
+//	int count;
 
-	count = 0;
+//	count = 0;
 	i = 0;
 	while (is_texture_name(file[i]))
 		i++;

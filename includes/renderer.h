@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/06 20:55:48 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/07 03:13:13 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RENDERER_H
 
 # include <stdint.h>
+# include <stddef.h>
 # include <player.h>
 # include <utils.h>
 
@@ -45,6 +46,8 @@ typedef struct	s_world
 	t_color	ceiling;
 	t_color	floor;
 	uint8_t	**map;
+	size_t	map_x_size;
+	size_t	map_y_size;
 }	t_world;
 
 typedef struct s_platform

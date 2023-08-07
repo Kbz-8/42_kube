@@ -6,12 +6,15 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:05:08 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 23:20:38 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/07 03:13:02 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+# include <renderer.h>
+# include <stdbool.h>
 
 typedef struct s_parse
 {
@@ -23,9 +26,6 @@ typedef struct s_parse
 	int	C_color;
 }	t_parse;
 
-# include <renderer.h>
-# include <stdbool.h>
-
 void				parse(int ac, char **av);
 t_textures_files	*get_textures_path(char **file);
 t_world				*create_world(char **file);
@@ -36,4 +36,5 @@ char				*fetch_path(char *line);
 char				*jump_space(char *path);
 bool				is_texture_name(char *str);
 bool				is_a_map(char **file);
+
 #endif

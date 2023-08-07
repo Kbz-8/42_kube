@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 02:58:55 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/02 15:13:00 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/07 02:55:34 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_application
 	bool		events_states[6];
 }	t_application;
 
-void	init_application(t_application *app);
+void	init_application(t_application *app, t_textures_files *t, t_world *w);
 void	run(t_application *app);
 int		update(t_application *app);
 void	destroy_application(t_application *app);
