@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 14:06:05 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 14:46:19 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ uint8_t	**cut_end_map(char **file, int width)
 	uint8_t **map;
 
 	i = 0;
-	map = alloc(width * sizeof(uint8_t *));
+	map = alloc(width * (sizeof(uint8_t *) + 1));
 	while (i < width)
 	{
 		map[i] = (uint8_t *)ft_strdup(file[i]);
 		i++;
 	}
-	// is_map_closed(map, width, len);
+	map[i] = NULL;
 	return (map);
 }
 

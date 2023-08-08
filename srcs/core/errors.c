@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:46 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 14:39:38 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 14:40:31 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static const char	*get_str_error(int error)
 void	report(enum e_type type, int error)
 {
 	if (type == FATAL_ERROR)
-		ft_putstr_fd("Fatal Error : ", 2);
+		ft_putstr_fd("Error\nFatal Error : ", 2);
 	else
-		ft_putstr_fd("Error : ", 2);
+		ft_putstr_fd("Error\nError : ", 2);
 	if (error < 0 || error >= ERRORS_NUMBER)
 		error = 0;
 	ft_putstr_fd((char *)get_str_error(error), 2);
