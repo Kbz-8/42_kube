@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/08 12:20:46 by vvaas            ###   ########.fr        #
+#    Updated: 2023/08/08 13:58:52 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	=	srcs/core/main.c  \
 			srcs/parser/file_utils.c  \
 			srcs/parser/map_utils.c  \
 			srcs/parser/check_map_closed.c  \
+			srcs/parser/check_spaces.c  \
 			srcs/renderer/dda.c  \
 			srcs/renderer/init.c  \
 			srcs/renderer/render.c  \

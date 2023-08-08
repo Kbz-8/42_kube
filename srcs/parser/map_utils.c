@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 13:05:08 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 14:06:05 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@
 #include <memory.h>
 #include <libft.h>
 
-bool	contain_invalid_spaces(char *str)
-{
-	char **tmp;
-	
-	tmp = ft_split(str, ' ');
-	if (!tmp)
-		report(INVALID_MAP, FATAL_ERROR);
-	if (tmp[1])
-		report(INVALID_MAP, FATAL_ERROR);
-	return (false);
-}
 bool	is_a_map(char **file)
 {
 	int i;
@@ -34,8 +23,8 @@ bool	is_a_map(char **file)
 
 	i = 0;
 	j = 0;
-	// is_map_closed(file);
-	while (file[i] && !contain_invalid_spaces(file[i]))
+	contain_invalid_chars(file);
+	while (file[i])
 	{
 		while (file[i][j])
 		{

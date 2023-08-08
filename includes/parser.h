@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:05:08 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:48:43 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 14:05:59 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y);
 uint8_t	**get_map(char **file, size_t *size_x, size_t *size_y);
 char	get_last_char(char *line);
 int		get_max_len(uint8_t **map);
+bool	contain_invalid_chars(char **file);
 #endif
