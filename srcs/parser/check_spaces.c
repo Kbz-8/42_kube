@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:58:26 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 14:23:22 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 14:37:05 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 bool	valid_spaces(char **file, int i, int j)
 {
-	if (file[j] == NULL)
-		return (true);
 	if (i < 0 || j < 0)
 		return (true);
 	if (file[i] == NULL)
@@ -30,8 +28,6 @@ bool	valid_spaces(char **file, int i, int j)
 
 bool	valid_floors(char **file, int i, int j)
 {
-	if (file[j] == NULL)
-		return (true);
 	if (i < 0 || j < 0)
 		return (false);
 	if (file[i] == NULL)

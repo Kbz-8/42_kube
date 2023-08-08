@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:31 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/06 23:10:48 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 14:39:07 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define NO_FILE				5
 # define INVALID_CONFIG_FILE	6
 # define INVALID_MAP			7
+# define OPEN_MAP				8
 
 enum	e_type
 {
