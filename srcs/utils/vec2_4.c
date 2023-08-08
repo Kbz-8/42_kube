@@ -1,46 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maths.c                                            :+:      :+:    :+:   */
+/*   vec2_4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 08:08:41 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 06:25:41 by maldavid         ###   ########.fr       */
+/*   Created: 2023/08/07 07:22:14 by maldavid          #+#    #+#             */
+/*   Updated: 2023/08/07 07:22:58 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
 #include <utils.h>
 
-float fix_ang(float a)
+void	vec2_div(t_vec2 *vec0, t_vec2 vec1)
 {
-	if (a < 0)
-		a += 2 * M_PI;
-	if (a > 2 * M_PI)
-		a -= 2 * M_PI;
-	return (a);
+	vec0->x /= vec1.x;
+	vec0->y /= vec1.y;
 }
 
-float	ft_fabs(float a)
+void	vec2_div_n(t_vec2 *vec0, float n)
 {
-	long	i;
-
-	i = *(long *)&a;
-	i &= ~(1u << 31);
-	return *(float *)&i;
+	vec0->x /= n;
+	vec0->y /= n;
 }
 
-void	fswap(float *a, float *b)
+t_vec2	vec2_div_copy(t_vec2 vec0, t_vec2 vec1)
 {
-	float tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	vec0.x /= vec1.x;
+	vec0.y /= vec1.y;
+	return (vec0);
 }
 
-float	dist(t_vec2 a, t_vec2 b)
+t_vec2	vec2_div_n_copy(t_vec2 vec0, float n)
 {
-	return (sqrt(powf(b.x - a.x, 2) + powf(b.y - a.y, 2)));
+	vec0.x /= n;
+	vec0.y /= n;
+	return (vec0);
 }

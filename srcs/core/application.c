@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 02:58:41 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/07 03:21:02 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 10:16:14 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,26 @@
 #include <memory.h>
 #include <application.h>
 
+#define SPEED	1.2f
+#define SENSI	0.03f
+
 static void	move(t_application *app)
 {
 	if (app->events_states[KEY_W])
-		vec2_add(&app->player.pos, vec2_mul_n_copy(app->player.dir, 1.f));
+		vec2_add(&app->player.pos, vec2_mul_n_copy(app->player.dir, SPEED));
 	if (app->events_states[KEY_S])
-		vec2_sub(&app->player.pos, vec2_mul_n_copy(app->player.dir, 1.f));
+		vec2_sub(&app->player.pos, vec2_mul_n_copy(app->player.dir, SPEED));
 	if (app->events_states[KEY_Q])
-		vec2_sub(&app->player.pos, vec2_mul_n_copy(app->player.left, 1.f));
+		vec2_add(&app->player.pos, vec2_mul_n_copy(app->player.left, SPEED));
 	if (app->events_states[KEY_D])
-		vec2_add(&app->player.pos, vec2_mul_n_copy(app->player.left, 1.f));
+		vec2_sub(&app->player.pos, vec2_mul_n_copy(app->player.left, SPEED));
 	if (app->events_states[KEY_LEFT])
-		app->player.angle += 1;
+		app->player.angle -= SENSI;
 	if (app->events_states[KEY_RIGHT])
-		app->player.angle -= 1;
+		app->player.angle += SENSI;
 	app->player.angle = fix_ang(app->player.angle);
-	app->player.dir.x = cos(deg_to_rad(app->player.angle));
-	app->player.dir.y = -sin(deg_to_rad(app->player.angle));
+	app->player.dir.x = cos(app->player.angle);
+	app->player.dir.y = -sin(app->player.angle);
 	app->player.left.x = -app->player.dir.y;
 	app->player.left.y = app->player.dir.x;
 }

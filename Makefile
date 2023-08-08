@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/06 22:53:16 by vvaas            ###   ########.fr        #
+#    Updated: 2023/08/07 08:36:37 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,15 @@ SRCS	=	srcs/core/main.c  \
 			srcs/parser/get_path.c  \
 			srcs/parser/get_world.c  \
 			srcs/parser/parser_utils.c  \
+			srcs/renderer/dda.c  \
 			srcs/renderer/init.c  \
 			srcs/renderer/render.c  \
+			srcs/renderer/render_utils.c  \
 			srcs/utils/maths.c \
 			srcs/utils/vec2_1.c \
 			srcs/utils/vec2_2.c \
 			srcs/utils/vec2_3.c \
+			srcs/utils/vec2_4.c \
 
 OBJ_DIR	= objs
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

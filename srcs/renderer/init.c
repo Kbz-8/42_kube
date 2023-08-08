@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:45 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/01 02:57:04 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 02:33:26 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void	init_platform(t_platform *plat)
 {
 	plat->mlx = mlx_init();
-	plat->win = mlx_new_window(plat->mlx, 1250, 720, "kube ? :)");
+	plat->win = mlx_new_window(plat->mlx, WIDTH, HEIGHT, "kube ? ;)");
 }
 
 static void	destroy_platform(t_platform *plat)

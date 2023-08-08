@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 03:31:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/07 03:46:05 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:15:46 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <utils.h>
+#include <dda.h>
 
 #ifdef BONUS
 static const bool minimap = true;
@@ -24,194 +26,92 @@ static const bool minimap = true;
 static const bool minimap = false;
 #endif
 
-void draw_line(t_renderer *renderer, t_vec2 v0, t_vec2 v1, int color)
+static void	process_walls(t_ray *ray)
 {
-	float tmp;
-	bool steep = false;
-	if (fabsf(v0.x - v1.x) < fabsf(v0.y - v1.y))
-	{
-		tmp = v0.x; v0.x = v0.y; v0.y = tmp;
-		tmp = v1.x; v1.x = v1.y; v1.y = tmp;
-		steep = true;
-	}
-	if (v0.x > v1.x)
-	{
-		tmp = v0.x; v0.x = v1.x; v1.x = tmp;
-		tmp = v0.y; v0.y = v1.y; v1.y = tmp;
-	}
-	int dx = v1.x - v0.x;
-	int dy = v1.y - v0.y;
-	float derror = fabsf(dy / (float)dx);
-	float error = 0;
-	int y = v0.y;
-	for(int x = v0.x; x <= v1.x; x++)
-	{
-		if (steep)
-			mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, y, x, color);
-		else
-			mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, x, y, color);
-		error += derror;
-		if (error > 0.5f)
-		{
-			y += (v1.y > v0.y ? 1 : -1);
-			error -= 1.0f;
-		}
-	}
+	ray->lineh = (int)(CUBE_SIZE * HEIGHT) / ray->distance;
+	if (ray->lineh > HEIGHT)
+		ray->lineh = HEIGHT;
+	ray->line_pos.x = ray->i;
+	ray->line_pos.y = (HEIGHT / 2) - (ray->lineh / 2);
+	ray->lineoff = (HEIGHT / 2) - (ray->lineh / 2);
 }
 
-static void	draw_vert_line(t_renderer *renderer, t_vec2 pos, int h, int color)
+static void	draw_floor_ceiling(t_renderer* renderer, t_ray *ray)
 {
-	int	i;
+	void	*mlx;
+	void	*win;
+	int		i;
+	t_color	ao;
 
-	i = pos.y;
-	while (i < pos.y + h)
+	ft_memset(&ao, 0, sizeof(t_color));
+	i = ray->lineoff + ray->lineh;
+	mlx = renderer->plat->mlx;
+	win = renderer->plat->win;
+	while (i < HEIGHT)
 	{
-		mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, pos.x, i, \
-						color);
+		mlx_pixel_put(mlx, win, ray->i, i, get_color(ao));
+		mlx_pixel_put(mlx, win, ray->i, HEIGHT - i, get_color(renderer->world->ceiling));
 		i++;
+		ao.r = renderer->world->floor.r / (i - (ray->lineoff + ray->lineh));
+		ao.g = renderer->world->floor.g / (i - (ray->lineoff + ray->lineh));
+		ao.b = renderer->world->floor.b / (i - (ray->lineoff + ray->lineh));
 	}
 }
 
-static void drawRays2D(t_renderer *renderer, t_player *player)
+static void	draw_walls(t_renderer *renderer, t_dda *dda, t_ray *ray)
 {
-	int dof;
-	float r;
-	float ra, disV, disH;
-	t_vec2 rv;
-	t_vec2 v;
-	t_vec2 m;
-	t_vec2 o;
-	t_vec2 s;
+	int8_t	color[4];
+	int		dst;
 
-	s.x = renderer->world->map_x_size;
-	s.y = renderer->world->map_y_size;
-	ra = fix_ang(player->angle + 30);
+	dst = ray->distance * 0.5f;
+	if (dda->distance.x < dda->distance.y)
+		dst += 25;
+	if (dst > 200)
+		dst = 200;
+	color[3] = 0xFF;
+	color[2] = 255 - dst;
+	color[1] = 255 - dst;
+	color[0] = 255 - dst;
+	draw_vert_line(renderer, ray->line_pos, ray->lineh, *(int *)color);
+}
 
-	for(r = 0; r < 156; r++)
+static void	render_walls(t_renderer *renderer, t_player *player)
+{
+	t_ray	ray;
+	t_dda	dda;
+
+	ray.ang = player->angle - DR * (FOV / 2);
+	ray.ang = fix_ang(ray.ang);
+	ray.i = 0;
+	while (ray.i < WIDTH)
 	{
-		dof = 0;
-		disV = 100000;
-		float Tan = tan(deg_to_rad(ra));
-		if(cos(deg_to_rad(ra)) > 0.001)
-		{
-			rv.x = (((int)player->pos.x >> 6) << 6) + 64;
-			rv.y = (player->pos.x - rv.x) * Tan + player->pos.y;
-			o.x = 64;
-			o.y =- o.x * Tan;
-		}
-		else if(cos(deg_to_rad(ra)) < -0.001)
-		{
-			rv.x = (((int)player->pos.x >> 6) << 6) - 0.0001;
-			rv.y = (player->pos.x - rv.x) * Tan + player->pos.y;
-			o.x = -(64);
-			o.y = -o.x * Tan;
-		}
-		else
-		{
-			rv.x = player->pos.x;
-			rv.y = player->pos.y;
-			dof = s.x;
-		}
-
-		while(dof < s.x)
-		{
-			m.x = (int)(rv.x) >> 6;
-			m.y = (int)(rv.y) >> 6;
-			if(m.x >= 0 && m.x < s.x && m.y >= 0 && m.y < s.y && renderer->world->map[(int)m.y][(int)m.x] == '1')
-			{
-				dof = s.x;
-				disV = cos(deg_to_rad(ra)) * (rv.x - player->pos.x) - sin(deg_to_rad(ra)) * (rv.y - player->pos.y);
-			}
-			else
-			{ 
-				rv.x += o.x;
-				rv.y += o.y;
-				dof += 1;
-			}
-		}
-		v.x = rv.x;
-		v.y = rv.y;
-
-		dof = 0;
-		disH = 100000;
-		Tan = 1.0 / Tan;
-		if(sin(deg_to_rad(ra)) > 0.001)
-		{
-			rv.y = (((int)player->pos.y >> 6) << 6) - 0.0001;
-			rv.x =(player->pos.y - rv.y) * Tan + player->pos.x;
-			o.y = -(64);
-			o.x = -o.y * Tan;
-		}
-		else if(sin(deg_to_rad(ra)) < -0.001)
-		{
-			rv.y = (((int)player->pos.y >> 6) << 6) + 64;
-			rv.x = (player->pos.y - rv.y) * Tan + player->pos.x;
-			o.y = 64;
-			o.x = -o.y * Tan;
-		}
-		else
-		{
-			rv.x = player->pos.x;
-			rv.y = player->pos.y;
-			dof = s.y;
-		}
-
-		while(dof < s.y)
-		{
-			m.x = (int)(rv.x) >> 6;
-			m.y = (int)(rv.y) >> 6;
-			if(m.x >= 0 && m.x < s.x && m.y >= 0 && m.y < s.y && renderer->world->map[(int)m.y][(int)m.x] == '1')
-			{
-				dof = s.y;
-				disH = cos(deg_to_rad(ra)) * (rv.x - player->pos.x) - sin(deg_to_rad(ra)) * (rv.y - player->pos.y);
-			}
-			else
-			{
-				rv.x += o.x;
-				rv.y += o.y;
-				dof += 1;
-			}
-		}
-
-		int color = 0x000000FF;
-		if(disV < disH)
-		{
-			rv.x = v.x;
-			rv.y = v.y;
-			disH = disV;
-			color = 0x00000088;
-		}
-
-		int ca = fix_ang(player->angle - ra);
-		disH = disH * cos(deg_to_rad(ca));
-		int lineH = ((64) * 720) / (disH);
-		if(lineH > 720)
-			lineH = 720;
-		int lineOff = 360 - (lineH >> 1);
-
-		for(int i = 0; i < 8; i++)
-		{
-			t_vec2 origin = { r * 8 + i, lineOff};
-			draw_vert_line(renderer, origin, lineH, color);
-		}
-
-		ra = fix_ang(ra - 0.5f);
+		dda_algorithm(renderer, player, &ray, &dda);
+		ray.coang = fix_ang(player->angle - ray.ang);
+		ray.distance *= cos(ray.coang);
+		process_walls(&ray);
+		draw_walls(renderer, &dda, &ray);
+		draw_floor_ceiling(renderer, &ray);
+		ray.ang += DR / (WIDTH / FOV);
+		ray.ang = fix_ang(ray.ang);
+		ray.i++;
 	}
 }
 
 void	render(t_renderer *renderer, t_player *player)
 {
-	mlx_clear_window(renderer->plat->mlx, renderer->plat->win);
 	int xo, yo;
-	int color;
-	drawRays2D(renderer, player);
+	t_vec2	player_size;
+	int		color;
+
+	mlx_clear_window(renderer->plat->mlx, renderer->plat->win);
+	render_walls(renderer, player);
 	if (minimap)
 	{
-		for(int y = 0; y < renderer->world->map_y_size; y++)
+		for(size_t y = 0; y < renderer->world->map_y_size; y++)
 		{
-			for(int x = 0; x < renderer->world->map_x_size; x++)
+			for(size_t x = 0; x < renderer->world->map_x_size; x++)
 			{
-				if(renderer->world->map[x][y] == '1')
+				if(renderer->world->map[y][x] == '1')
 					color = 0x00444444;
 				else
 					color = 0x00FFFFFF;
@@ -224,11 +124,9 @@ void	render(t_renderer *renderer, t_player *player)
 				}
 			}
 		}
-		for(int i = player->pos.x / 7; i < player->pos.x / 7 + 4; i++)
-		{
-			for(int j = player->pos.y / 7; j < player->pos.y / 7 + 4; j++)
-				mlx_pixel_put(renderer->plat->mlx, renderer->plat->win, i, j, 0x00FF0000);
-		}
+		player_size.x = 4;
+		player_size.y = 4;
+		draw_rect(renderer, vec2_div_n_copy(player->pos, 7), player_size, 0x00FF0000);
 	}
 }
 

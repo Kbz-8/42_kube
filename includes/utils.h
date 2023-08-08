@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:10:26 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/02 19:08:40 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 02:41:36 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ void	vec2_mul(t_vec2 *vec0, t_vec2 vec1);
 t_vec2	vec2_mul_copy(t_vec2 vec0, t_vec2 vec1);
 void	vec2_mul_n(t_vec2 *vec0, float n);
 t_vec2	vec2_mul_n_copy(t_vec2 vec0, float n);
-float	deg_to_rad(float a);
+void	vec2_div(t_vec2 *vec0, t_vec2 vec1);
+t_vec2	vec2_div_copy(t_vec2 vec0, t_vec2 vec1);
+void	vec2_div_n(t_vec2 *vec0, float n);
+t_vec2	vec2_div_n_copy(t_vec2 vec0, float n);
 float	fix_ang(float a);
 float	ft_fabs(float a);
 void	fswap(float *a, float *b);
+float	dist(t_vec2 a, t_vec2 b);
 
 #endif
