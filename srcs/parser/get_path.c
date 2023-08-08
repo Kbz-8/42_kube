@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:46:05 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 14:50:36 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 16:44:57 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,47 @@ t_textures_files	*get_textures_path(char **file)
 	return (path);
 }
 
+bool	ft_isnumber(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
+	if (str[i] == 0)
+		return (true);
+	if (str[i + 1] == 0)
+		return (true);
+	else
+		return (false);
+}
+
+void	check_color_buff(char **buffer)
+{
+	if (!buffer || buffer[0] == NULL | buffer[1] == NULL || buffer[2] == NULL)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+	if (buffer[3] == NULL || buffer[4] != NULL)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+	if (!ft_isnumber(buffer[1]) || !ft_isnumber(buffer[2]) || \
+	!ft_isnumber(buffer[3]))
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+}
 void	get_colors(t_color *floor, t_color *ceiling, char **file)
 {
 	char **buffer;
 
-	buffer = ft_split(jump_space(fetch_line(file, "F")), ',');
-	floor->r = ft_atoi(buffer[0]);
-	floor->g = ft_atoi(buffer[1]);
-	floor->b = ft_atoi(buffer[2]);
-	buffer = ft_split(jump_space(fetch_line(file, "C")), ',');
-	ceiling->r = ft_atoi(buffer[0]);
-	ceiling->g = ft_atoi(buffer[1]);
-	ceiling->b = ft_atoi(buffer[2]);
+	buffer = ft_splits(jump_space(fetch_line(file, "F")), " ,");
+	check_color_buff(buffer);
+	floor->r = ft_atoi(buffer[1]);
+	floor->g = ft_atoi(buffer[2]);
+	floor->b = ft_atoi(buffer[3]);
+	buffer = ft_splits(jump_space(fetch_line(file, "C")), " ,");
+	check_color_buff(buffer);
+	ceiling->r = ft_atoi(buffer[1]);
+	ceiling->g = ft_atoi(buffer[2]);
+	ceiling->b = ft_atoi(buffer[3]);
 }
