@@ -6,26 +6,27 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:15:28 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 13:05:08 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <parser.h>
 #include <errors.h>
+#include <memory.h>
+#include <libft.h>
 
-uint8_t	**get_map(char **file, size_t *size_x, size_t *size_y)
+bool	contain_invalid_spaces(char *str)
 {
-	int i;
-
-	i = 0;
-
-	while (is_texture_name(file[i]))
-		i++;
-	is_a_map(&file[i]);
-	return (convert_map(&file[i], size_x, size_y));
+	char **tmp;
+	
+	tmp = ft_split(str, ' ');
+	if (!tmp)
+		report(INVALID_MAP, FATAL_ERROR);
+	if (tmp[1])
+		report(INVALID_MAP, FATAL_ERROR);
+	return (false);
 }
-
 bool	is_a_map(char **file)
 {
 	int i;
@@ -33,7 +34,8 @@ bool	is_a_map(char **file)
 
 	i = 0;
 	j = 0;
-	while (file[i])
+	// is_map_closed(file);
+	while (file[i] && !contain_invalid_spaces(file[i]))
 	{
 		while (file[i][j])
 		{
@@ -66,6 +68,29 @@ bool	is_map_character(char c)
 	return (false);
 }
 
+bool	is_map_component(char *str)
+{
+	if (jump_space(str)[0] == '\n' || jump_space(str)[0] == 0)
+		return (false);
+	return (true);
+}
+
+uint8_t	**cut_end_map(char **file, int width)
+{
+	int i;
+	uint8_t **map;
+
+	i = 0;
+	map = alloc(width * sizeof(uint8_t *));
+	while (i < width)
+	{
+		map[i] = (uint8_t *)ft_strdup(file[i]);
+		i++;
+	}
+	// is_map_closed(map, width, len);
+	return (map);
+}
+
 uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 {
 	int i;
@@ -74,13 +99,11 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 	i = 0;
 	j = 0;
 	*size_y = 0;
-	while (file[i])
+	while (file[i] && is_map_component(file[i]))
 	{
 		*size_x = 0;
 		while (file[i][j])
 		{
-			if (file[i][j] == ' ')
-				file[i][j] = '0';
 			if (file[i][j] == '\n')
 				file[i][j] = 0;
 			j++;
@@ -90,5 +113,5 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 		i++;
 		(*size_y)++;
 	}
-	return ((uint8_t **)file);
+	return (cut_end_map(file, i));
 }

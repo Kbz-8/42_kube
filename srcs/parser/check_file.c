@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:10:00 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 12:22:16 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <parser.h>
 #include <errors.h>
 #include <renderer.h>
-
-t_textures_files	*get_textures_path(char **file);
 
 bool	in_order(char **file)
 {
@@ -42,6 +40,7 @@ void	check_texture_amount(t_parse *texture)
 void	texture_path(t_parse *texture, char **file)
 {
 	int i;
+
 	i = 0;
 	ft_memset(texture, 0, sizeof(t_parse));
 	while (file[i])
