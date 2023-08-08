@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:05:08 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/07 03:13:02 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 12:16:16 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,25 @@ typedef struct s_parse
 void				parse(int ac, char **av);
 t_textures_files	*get_textures_path(char **file);
 t_world				*create_world(char **file);
-char				**get_file(char **av);
-bool				check_file(char **file);
-char				*fetch_line(char **file, char *target);
-char				*fetch_path(char *line);
-char				*jump_space(char *path);
-bool				is_texture_name(char *str);
-bool				is_a_map(char **file);
 
+//-------------FILE MANIPULATION-----------
+
+char	*fetch_line(char **file, char *target);
+char	*fetch_path(char *line);
+char	**get_file(char **av);
+bool	check_file(char **file);
+
+//-------------PARSING-----------
+bool	is_map_character(char c);
+bool	is_a_map(char **file);
+
+//-------------TEXTURE PARSING-----------
+bool	is_texture_name(char *str);
+void	get_colors(t_color *floor, t_color *ceiling, char **file);
+
+//-------------UTILS-----------
+char	*jump_space(char *path);
+int	ft_charcount(char *str, char character);
+uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y);
+uint8_t	**get_map(char **file, size_t *size_x, size_t *size_y);
 #endif

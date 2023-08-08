@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:50:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/07 03:14:50 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:36:53 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #ifdef DEBUG
 static const bool debug = true;
 #else
-static const bool debug = false
+static const bool debug = false;
 #endif
 
 void	print_debug(char **av)

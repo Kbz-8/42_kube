@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:31:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 23:33:05 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 12:16:03 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,53 +21,6 @@
 #include <memory.h>
 #include <stdio.h>
 #include <parser.h>
-
-int	ft_charcount(char *str, char character)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == character)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-char	**get_file(char **av)
-{
-	int		fd;
-	char	*buffer;
-	char	*tmp;
-	char	**file;
-	int i;
-
-	i = 0;
-	buffer = alloc(1);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		report(FATAL_ERROR, NO_FILE);
-	tmp = get_next_line(fd);
-	while (tmp)
-	{
-		buffer = ft_strjoin(buffer, tmp);
-		tmp = get_next_line(fd);
-	}
-	buffer = ft_strjoin(buffer, "\0");
-	file = alloc(sizeof(char *) * (ft_charcount(buffer, '\n') + 2));
-	close(fd);
-	fd = open(av[1], O_RDONLY);
-	file[i] = get_next_line(fd);
-	while (file[i])
-		file[++i] = get_next_line(fd);
-	file[i] = NULL;
-	close(fd);
-	return (file);
-}
 
 void	name_parse(char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:52:53 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 23:22:19 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 12:12:26 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,46 +23,6 @@ char	*jump_space(char *path)
 	while (path && path[i] && path[i] == ' ')
 		i++;
 	return (&path[i]);
-}
-
-bool	is_map_character(char c)
-{
-	static bool dir = 0;
-
-	if ((c == 'N' && dir) || (c == 'W' && dir) || (c == 'E' && dir))
-		report(FATAL_ERROR, INVALID_MAP);
-	if (c == 'S' && dir)
-		report(FATAL_ERROR, INVALID_MAP);
-	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-	{
-		dir = 1;
-		return (true);
-	}
-	if (c == '0' || c == '1' || c == ' ' || c == '\n')
-		return (true);
-	report(FATAL_ERROR, INVALID_MAP);
-	return (false);
-}
-
-bool	is_a_map(char **file)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (file[i])
-	{
-		while (file[i][j])
-		{
-			if (!is_map_character(file[i][j]))
-				return (false);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (true);
 }
 
 bool	is_texture_name(char *str)

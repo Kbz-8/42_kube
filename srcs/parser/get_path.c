@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:46:05 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/06 22:57:22 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/08 12:07:25 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,6 @@
 #include <parser.h>
 #include <stdbool.h>
 #include <memory.h>
-
-char	*fetch_path(char *line)
-{
-	int i;
-
-	i = 0;
-	line = jump_space(jump_space(line) + 2);
-	while (line[i] && line[i] != ' ' && line[i] != '\n')
-		i++;
-	if (i == 0)
-		return (NULL);
-	return (ft_strndup(line, i));
-}
-
-char	*fetch_line(char **file, char *target)
-{
-	int i;
-
-	i = 0;
-	while (file[i])
-	{
-		if (ft_strncmp(jump_space(file[i]), target, ft_strlen(target)) == 0)
-			return (file[i]);
-		i++;
-	}
-	return (NULL);
-
-}
 
 t_textures_files	*get_textures_path(char **file)
 {
@@ -54,4 +26,18 @@ t_textures_files	*get_textures_path(char **file)
 	path->west = fetch_path(fetch_line(file, "WE"));
 	path->east = fetch_path(fetch_line(file, "EA"));
 	return (path);
+}
+
+void	get_colors(t_color *floor, t_color *ceiling, char **file)
+{
+	char **buffer;
+
+	buffer = ft_split(jump_space(fetch_line(file, "F")), ',');
+	floor->r = ft_atoi(buffer[0]);
+	floor->g = ft_atoi(buffer[1]);
+	floor->b = ft_atoi(buffer[2]);
+	buffer = ft_split(jump_space(fetch_line(file, "C")), ',');
+	ceiling->r = ft_atoi(buffer[0]);
+	ceiling->g = ft_atoi(buffer[1]);
+	ceiling->b = ft_atoi(buffer[2]);
 }
