@@ -6,13 +6,14 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:58:26 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 14:37:05 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 17:24:17 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errors.h>
 #include <libft.h>
 #include <stdbool.h>
+#include <parser.h>
 
 bool	valid_spaces(char **file, int i, int j)
 {
@@ -59,7 +60,7 @@ bool	contain_invalid_chars(char **file)
 		{
 			if (file[i][j] == ' ')
 				check_char_validity(file, i, j, &valid_spaces);
-			if (file[i][j] == '0')
+			if (file[i][j] == '0' || is_dir_char(file[i][j]))
 				check_char_validity(file, i, j, &valid_floors);
 			j++;
 		}

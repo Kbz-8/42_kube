@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:52:53 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:50:32 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 17:08:52 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*jump_space(char *path)
 
 bool	is_texture_name(char *str)
 {
+	if (jump_space(str) == NULL)
+		return (false);
 	if (ft_strncmp(jump_space(str), "NO", 2) == 0)
 		return (true);
 	if (ft_strncmp(jump_space(str), "SO", 2) == 0)

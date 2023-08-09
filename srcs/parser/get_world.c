@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:43:56 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:29:26 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 17:10:02 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ uint8_t	**get_map(char **file, size_t *size_x, size_t *size_y)
 
 	i = 0;
 
-	while (is_texture_name(file[i]))
+	while (file[i] && is_texture_name(file[i]))
 		i++;
 	is_a_map(&file[i]);
 	return (convert_map(&file[i], size_x, size_y));

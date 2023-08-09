@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:22:16 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 17:10:56 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	texture_path(t_parse *texture, char **file)
 	ft_memset(texture, 0, sizeof(t_parse));
 	while (file[i])
 	{
+		if (jump_space(file[i]) == NULL)
+			continue;
 		if (ft_strncmp(jump_space(file[i]), "NO", 2) == 0)
 			texture->N_textures++;
 		if (ft_strncmp(jump_space(file[i]), "SO", 2) == 0)
@@ -68,7 +70,7 @@ bool	check_file(char **file)
 	t_parse	texture_list;
 
 	i = 0;
-	while (file[i][0] == '\n' && file[i][0] != '\0')
+	while (file[i] && file[i][0] == '\n' && file[i][0] != '\0')
 		file[i++][0] = ' ';
 	i = 0;
 	texture_path(&texture_list, file);

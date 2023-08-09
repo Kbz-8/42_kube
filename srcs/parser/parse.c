@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:31:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 12:16:03 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 17:02:08 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	parse(int ac, char **av)
 	if (ac != 2)
 		report(FATAL_ERROR, E_TOO_MANY_ARGS);
 	name_parse(av);
-	check_file(get_file(av));
+	if (!check_file(get_file(av)))
+		report(FATAL_ERROR, INVALID_MAP);
 //	file = get_file(av);
 }

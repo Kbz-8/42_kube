@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 14:46:19 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 16:57:44 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 #include <memory.h>
 #include <libft.h>
 
+bool	is_dir_char(char c)
+{
+	return (c == 'N' || c == 'W' || c == 'E' || c == 'S');
+}
+
 bool	is_a_map(char **file)
 {
 	int i;
 	int j;
+	int count;
 
+	count = 0;
 	i = 0;
 	j = 0;
 	contain_invalid_chars(file);
@@ -30,27 +37,22 @@ bool	is_a_map(char **file)
 		{
 			if (!is_map_character(file[i][j]))
 				return (false);
+			if (is_dir_char(file[i][j]))
+				count++;
 			j++;
 		}
 		j = 0;
 		i++;
 	}
+	if (count != 1)
+		report(FATAL_ERROR, INVALID_MAP);
 	return (true);
 }
 
 bool	is_map_character(char c)
 {
-	static bool dir = 0;
-
-	if ((c == 'N' && dir) || (c == 'W' && dir) || (c == 'E' && dir))
-		report(FATAL_ERROR, INVALID_MAP);
-	if (c == 'S' && dir)
-		report(FATAL_ERROR, INVALID_MAP);
 	if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-	{
-		dir = 1;
 		return (true);
-	}
 	if (c == '0' || c == '1' || c == ' ' || c == '\n')
 		return (true);
 	report(FATAL_ERROR, INVALID_MAP);
@@ -59,7 +61,7 @@ bool	is_map_character(char c)
 
 bool	is_map_component(char *str)
 {
-	if (jump_space(str)[0] == '\n' || jump_space(str)[0] == 0)
+	if (jump_space(str)[0] == '\n' || !jump_space(str)[0])
 		return (false);
 	return (true);
 }
