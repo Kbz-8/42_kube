@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 02:58:41 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 10:16:14 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/08 23:25:31 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <memory.h>
 #include <application.h>
 
-#define SPEED	1.2f
-#define SENSI	0.03f
+#define SPEED	4.f
+#define SENSI	0.1f
 
 static void	move(t_application *app)
 {
@@ -27,13 +27,13 @@ static void	move(t_application *app)
 	if (app->events_states[KEY_S])
 		vec2_sub(&app->player.pos, vec2_mul_n_copy(app->player.dir, SPEED));
 	if (app->events_states[KEY_Q])
-		vec2_add(&app->player.pos, vec2_mul_n_copy(app->player.left, SPEED));
-	if (app->events_states[KEY_D])
 		vec2_sub(&app->player.pos, vec2_mul_n_copy(app->player.left, SPEED));
+	if (app->events_states[KEY_D])
+		vec2_add(&app->player.pos, vec2_mul_n_copy(app->player.left, SPEED));
 	if (app->events_states[KEY_LEFT])
-		app->player.angle -= SENSI;
-	if (app->events_states[KEY_RIGHT])
 		app->player.angle += SENSI;
+	if (app->events_states[KEY_RIGHT])
+		app->player.angle -= SENSI;
 	app->player.angle = fix_ang(app->player.angle);
 	app->player.dir.x = cos(app->player.angle);
 	app->player.dir.y = -sin(app->player.angle);

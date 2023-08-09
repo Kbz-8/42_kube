@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:45 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 02:33:26 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 05:00:21 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ t_renderer	*init_renderer(t_textures_files *textures, t_world *world)
 	renderer->world = world;
 	renderer->plat = alloc(sizeof(t_platform));
 	init_platform(renderer->plat);
+	//-----tmp-----
+	renderer->tex[0].img = mlx_jpg_file_to_image(renderer->plat->mlx, "res/wall_0.jpg", &renderer->tex[0].w, &renderer->tex[0].h);
+	//-----tmp-----
 	return (renderer);
 }
 
 void	destroy_renderer(t_renderer *renderer)
 {
+	mlx_destroy_image(renderer->plat->mlx, renderer->tex[0].img);
 	destroy_platform(renderer->plat);
 }

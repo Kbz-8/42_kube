@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 10:28:46 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:16:26 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 # include <player.h>
 # include <utils.h>
 
-# define FOV			80
-# define CUBE_SIZE		64
-# define WIDTH			1250
-# define HEIGHT			720
-# define DR				0.0174533
+# define FOV					70
+# define CUBE_SIZE				64
+# define TEXTURE_SIZE			128
+# define WIDTH					1250
+# define HEIGHT					720
+# define DEG_TO_RAD				0.0174533
+
+typedef struct	s_dda	t_dda;
 
 typedef struct	s_textures_files
 {
@@ -32,13 +35,12 @@ typedef struct	s_textures_files
 	const char	*east;
 }	t_textures_files;
 
-typedef struct	s_textures
+typedef struct	s_texture
 {
-	void	*north;
-	void	*south;
-	void	*west;
-	void	*east;
-}	t_textures;
+	void	*img;
+	int		w;
+	int		h;
+}	t_texture;
 
 typedef struct	s_color
 {
@@ -64,22 +66,24 @@ typedef struct s_platform
 
 typedef struct	s_renderer
 {
-	t_textures	*textures;
+	t_texture	tex[4];
 	t_world		*world;
 	t_platform	*plat;
 }	t_renderer;
 
 typedef struct s_ray
 {
-	t_vec2	pos;
-	t_vec2	offset;
 	t_vec2	line_pos;
-	float	ang;
+	t_vec2	offset;
+	t_vec2	pos;
+	t_vec2	tex;
 	float	distance;
-	float	coang;
-	float	lineoff;
-	int		lineh;
+	float	line_off;
+	float	texy_off;
+	float	tex_step;
+	float	ang;
 	int		i;
+	int		line_h;
 }	t_ray;
 
 t_renderer	*init_renderer(t_textures_files *textures, t_world *world);
@@ -89,5 +93,6 @@ void		draw_line(t_renderer *renderer, t_vec2 v0, t_vec2 v1, int color);
 void		draw_vert_line(t_renderer *renderer, t_vec2 pos, int h, int color);
 void		draw_rect(t_renderer *renderer, t_vec2 pos, t_vec2 dims, int color);
 int			get_color(t_color color);
+void		depth_lightning(uint8_t color[4], t_ray *ray, t_dda *dda);
 
 #endif

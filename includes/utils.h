@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:10:26 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 02:41:36 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 02:44:07 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <math.h>
+# include <stdint.h>
 
 typedef struct	s_vec2
 {
@@ -41,5 +42,6 @@ float	fix_ang(float a);
 float	ft_fabs(float a);
 void	fswap(float *a, float *b);
 float	dist(t_vec2 a, t_vec2 b);
+void	reverse_array(uint8_t arr[], int size);
 
 #endif

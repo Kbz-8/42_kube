@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 08:13:26 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 06:00:39 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 10:41:09 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ typedef struct s_dda
 	t_vec2	hori;
 	t_vec2	map;
 	float	tan;
-	int		ddai;
-	bool	dodda;
+	int		i;
+	bool	run;
+	bool	horizontal;
 }	t_dda;
 
 void	dda_algorithm(t_renderer *r, t_player *player, t_ray *ray, t_dda *dda);

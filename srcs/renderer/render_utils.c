@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 05:32:05 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 10:21:15 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 10:32:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <mlx.h>
+#include <dda.h>
 
 void draw_line(t_renderer *renderer, t_vec2 v0, t_vec2 v1, int color)
 {
@@ -93,8 +94,27 @@ int	get_color(t_color color)
 	uint8_t	res[4];
 
 	res[3] = 0xFF;
-	res[2] = color.r;
-	res[1] = color.g;
-	res[0] = color.b;
+	res[2] = (uint8_t)color.r;
+	res[1] = (uint8_t)color.g;
+	res[0] = (uint8_t)color.b;
 	return (*(int *)res);
+}
+
+// [1 - (1 - (color / 255))²] correction function to ensure smooth shading
+void	depth_lightning(uint8_t color[4], t_ray *ray, t_dda *dda)
+{
+	int		dst;
+	float	cor;
+
+	dst = ray->distance * 0.3f;
+	if (dda->distance.x < dda->distance.y)
+		dst += 35;
+	if (dst > 235)
+		dst = 235;
+	cor = 1 - (1 - (float)color[2] / 0x100) * (1 - (float)color[2] / 0x100);
+	color[2] = (uint8_t)((color[2] - dst * cor > 0) * (color[2] - dst * cor));
+	cor = 1 - (1 - (float)color[1] / 0x100) * (1 - (float)color[1] / 0x100);
+	color[1] = (uint8_t)((color[1] - dst * cor > 0) * (color[1] - dst * cor));
+	cor = 1 - (1 - (float)color[0] / 0x100) * (1 - (float)color[0] / 0x100);
+	color[0] = (uint8_t)((color[0] - dst * cor > 0) * (color[0] - dst * cor));
 }
