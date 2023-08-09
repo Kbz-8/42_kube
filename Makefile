@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/08 16:25:49 by vvaas            ###   ########.fr        #
+#    Updated: 2023/08/09 13:54:50 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ libft:
 	@make -C third_party/libft
 
 mlx:
-	@make -C third_party/mlx
+	@make -C third_party/mlx IMAGES_OPTIMIZED=false
 
 $(NAME):	$(OBJ_DIR) $(OBJS)
 	@echo "\e[1;32m[linking   "$(MODE)" {"$(CC)"}...]\e[1;00m "$@
