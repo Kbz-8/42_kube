@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 18:03:35 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/02 12:53:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:42:48 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@
 
 #include <iostream>
 
+#ifdef IMAGE_OPTIMIZED
+	#define TILING VK_IMAGE_TILING_OPTIMAL
+#else
+	#define TILING VK_IMAGE_TILING_LINEAR
+#endif
+
 namespace mlx
 {
 	void Texture::create(uint8_t* pixels, uint32_t width, uint32_t height, VkFormat format)
 	{
-		Image::create(width, height, format, VK_IMAGE_TILING_OPTIMAL,
+		Image::create(width, height, format, TILING,
 			VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
 			{ VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT }
 		);

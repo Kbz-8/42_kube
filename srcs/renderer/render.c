@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 03:31:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 11:13:41 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:05:19 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,21 @@ static void	process_walls(t_ray *ray, t_dda *dda)
 	}
 }
 
-static void	draw_walls(t_renderer *r, t_dda *dda, t_ray *ray)
+static void	draw_walls(t_renderer *r, t_dda *dda, t_ray *ray, t_player *player)
 {
 	void	*mlx;
 	void	*win;
 	uint8_t	color[4];
 	int		y;
+	int		texture_id;
 
 	y = 0;
 	mlx = r->plat->mlx;
 	win = r->plat->win;
+	texture_id = get_texture_id(player, ray);
 	while (y < ray->line_h)
 	{
-		*(int *)color = mlx_get_image_pixel(mlx, r->tex[0].img, \
+		*(int *)color = mlx_get_image_pixel(mlx, r->tex[texture_id].img, \
 				(int)ray->tex.x, (int)ray->tex.y);
 		depth_lightning(color, ray, dda);
 		reverse_array(color, 3);
@@ -87,7 +89,8 @@ static void	draw_floor_ceiling(t_renderer* renderer, t_ray *ray)
 	while (i < HEIGHT)
 	{
 		j[0] += 0.1f;
-		j[1] = 1.0f - powf(1.0f - (((float)i / HEIGHT) - 0.5f), 2);
+		j[1] = 1.0f - (1.0f - (((float)i / HEIGHT) - 0.5f)) * \
+			   			(1.0f - (((float)i / HEIGHT) - 0.5f));
 		color[2] = (uint8_t)((w->floor.r - (w->floor.r / j[0])) * j[1]);
 		color[1] = (uint8_t)((w->floor.g - (w->floor.g / j[0])) * j[1]);
 		color[0] = (uint8_t)((w->floor.b - (w->floor.b / j[0])) * j[1]);
@@ -111,7 +114,7 @@ void	render(t_renderer *renderer, t_player *player)
 		dda_algorithm(renderer, player, &ray, &dda);
 		ray.distance *= cos(fix_ang(player->angle - ray.ang));
 		process_walls(&ray, &dda);
-		draw_walls(renderer, &dda, &ray);
+		draw_walls(renderer, &dda, &ray, player);
 		draw_floor_ceiling(renderer, &ray);
 		ray.ang += DEG_TO_RAD / (WIDTH / FOV);
 		ray.ang = fix_ang(ray.ang);

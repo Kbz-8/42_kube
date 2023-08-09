@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 11:16:26 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:59:07 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define FOV					70
 # define CUBE_SIZE				64
-# define TEXTURE_SIZE			128
+# define TEXTURE_SIZE			64
 # define WIDTH					1250
 # define HEIGHT					720
 # define DEG_TO_RAD				0.0174533
@@ -29,17 +29,15 @@ typedef struct	s_dda	t_dda;
 
 typedef struct	s_textures_files
 {
-	const char	*north;
-	const char	*south;
-	const char	*west;
-	const char	*east;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
 }	t_textures_files;
 
 typedef struct	s_texture
 {
 	void	*img;
-	int		w;
-	int		h;
 }	t_texture;
 
 typedef struct	s_color
@@ -89,10 +87,9 @@ typedef struct s_ray
 t_renderer	*init_renderer(t_textures_files *textures, t_world *world);
 void		render(t_renderer *renderer, t_player *player);
 void		destroy_renderer(t_renderer *renderer);
-void		draw_line(t_renderer *renderer, t_vec2 v0, t_vec2 v1, int color);
 void		draw_vert_line(t_renderer *renderer, t_vec2 pos, int h, int color);
-void		draw_rect(t_renderer *renderer, t_vec2 pos, t_vec2 dims, int color);
 int			get_color(t_color color);
 void		depth_lightning(uint8_t color[4], t_ray *ray, t_dda *dda);
+int			get_texture_id(t_player *player, t_ray *ray);
 
 #endif
