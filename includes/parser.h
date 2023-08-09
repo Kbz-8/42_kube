@@ -6,13 +6,14 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:05:08 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/09 17:23:18 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/09 17:28:13 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# define CRAMPTES 42
 # include <renderer.h>
 # include <stdbool.h>
 
