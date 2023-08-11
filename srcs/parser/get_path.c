@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:46:05 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/11 14:10:49 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 15:07:22 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	check_textures_paths(char **file)
 
 void	check_after_path(char *str, char *path)
 {
+	if (str[2] != ' ')
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 	if (jump_space(jump_space(str + 2) + ft_strlen(path))[0] != '\n')
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 }
@@ -57,8 +59,11 @@ t_textures_files	*get_textures_path(char **file)
 	path->north = fetch_path(fetch_line(file, "NO"));
 	check_after_path(fetch_line(file, "NO"), path->north);
 	path->south = fetch_path(fetch_line(file, "SO"));
+	check_after_path(fetch_line(file, "SO"), path->north);
 	path->west = fetch_path(fetch_line(file, "WE"));
+	check_after_path(fetch_line(file, "WE"), path->north);
 	path->east = fetch_path(fetch_line(file, "EA"));
+	check_after_path(fetch_line(file, "EA"), path->north);
 	return (path);
 }
 
