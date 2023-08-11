@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:46:05 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/08 16:44:57 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 14:10:49 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 void	check_textures_paths(char **file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(fetch_path(fetch_line(file, "NO")), O_RDONLY);
 	if (fd == -1)
@@ -42,60 +42,56 @@ void	check_textures_paths(char **file)
 	close(fd);
 }
 
+void	check_after_path(char *str, char *path)
+{
+	if (jump_space(jump_space(str + 2) + ft_strlen(path))[0] != '\n')
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+}
+
 t_textures_files	*get_textures_path(char **file)
 {
-	t_textures_files *path;
+	t_textures_files	*path;
 
 	check_textures_paths(file);
 	path = alloc(sizeof(t_textures_files));
 	path->north = fetch_path(fetch_line(file, "NO"));
+	check_after_path(fetch_line(file, "NO"), path->north);
 	path->south = fetch_path(fetch_line(file, "SO"));
 	path->west = fetch_path(fetch_line(file, "WE"));
 	path->east = fetch_path(fetch_line(file, "EA"));
 	return (path);
 }
 
-bool	ft_isnumber(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		if (!ft_isdigit(str[i]))
-			return (false);
-		i++;
-	}
-	if (str[i] == 0)
-		return (true);
-	if (str[i + 1] == 0)
-		return (true);
-	else
-		return (false);
-}
-
 void	check_color_buff(char **buffer)
 {
 	if (!buffer || buffer[0] == NULL | buffer[1] == NULL || buffer[2] == NULL)
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
-	if (buffer[3] == NULL || buffer[4] != NULL)
+	if (buffer[3] == NULL || (buffer[4] != NULL && buffer[4][0] != '\n'))
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 	if (!ft_isnumber(buffer[1]) || !ft_isnumber(buffer[2]) || \
 	!ft_isnumber(buffer[3]))
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
+	if (ft_atoi(buffer[1]) > 255 || ft_atoi(buffer[2]) > 255 || \
+	ft_atoi(buffer[3]) > 255)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 }
+
 void	get_colors(t_color *floor, t_color *ceiling, char **file)
 {
-	char **buffer;
+	char	**buffer;
 
 	buffer = ft_splits(jump_space(fetch_line(file, "F")), " ,");
 	check_color_buff(buffer);
 	floor->r = ft_atoi(buffer[1]);
 	floor->g = ft_atoi(buffer[2]);
 	floor->b = ft_atoi(buffer[3]);
+	if (floor->r > 255 || floor->g > 255 || floor->b > 255)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 	buffer = ft_splits(jump_space(fetch_line(file, "C")), " ,");
 	check_color_buff(buffer);
 	ceiling->r = ft_atoi(buffer[1]);
 	ceiling->g = ft_atoi(buffer[2]);
 	ceiling->b = ft_atoi(buffer[3]);
+	if (floor->r > 255 || floor->g > 255 || floor->b > 255)
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 }

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:04:48 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/09 17:41:47 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 14:26:34 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@
 
 char	*fetch_path(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	line = jump_space(jump_space(line) + 2);
 	while (line[i] && line[i] != ' ' && line[i] != '\n')
 		i++;
 	if (i == 0)
-		return (NULL);
+		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 	return (ft_strndup(line, i));
 }
 
 char	*fetch_line(char **file, char *target)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (file[i])
@@ -43,20 +43,17 @@ char	*fetch_line(char **file, char *target)
 		i++;
 	}
 	return (NULL);
-
 }
 
-char	**get_file(char **av)
+char	**create_map_buffer(char *path)
 {
-	int		fd;
 	char	*buffer;
-	char	*tmp;
 	char	**file;
-	int i;
+	int		fd;
+	char	*tmp;
 
-	i = 0;
 	buffer = alloc(1);
-	fd = open(av[1], O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		report(FATAL_ERROR, NO_FILE);
 	tmp = get_next_line(fd);
@@ -68,6 +65,17 @@ char	**get_file(char **av)
 	buffer = ft_strjoin(buffer, "\0");
 	file = alloc(sizeof(char *) * (ft_charcount(buffer, '\n') + 2));
 	close(fd);
+	return (file);
+}
+
+char	**get_file(char **av)
+{
+	int		fd;
+	char	**file;
+	int		i;
+
+	i = 0;
+	file = create_map_buffer(av[1]);
 	fd = open(av[1], O_RDONLY);
 	file[i] = get_next_line(fd);
 	while (file[i])

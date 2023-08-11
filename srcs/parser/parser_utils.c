@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:52:53 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/09 17:08:52 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 14:11:51 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	get_last_char(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!line)
@@ -31,7 +31,7 @@ char	get_last_char(char *line)
 
 char	*jump_space(char *path)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (path && path[i] && path[i] == ' ')
@@ -62,8 +62,8 @@ bool	is_texture_name(char *str)
 
 int	get_max_len(uint8_t **map)
 {
-	int i;
-	int max;
+	int	i;
+	int	max;
 
 	i = 0;
 	max = ft_strlen((char *)map[i]);
@@ -74,4 +74,23 @@ int	get_max_len(uint8_t **map)
 		i++;
 	}
 	return (max);
+}
+
+bool	ft_isnumber(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
+	if (str[i] == 0)
+		return (true);
+	if (str[i + 1] == 0)
+		return (true);
+	else
+		return (false);
 }

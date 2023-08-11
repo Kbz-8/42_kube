@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/09 17:10:56 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 14:11:36 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 bool	in_order(char **file)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (is_texture_name(file[i]))
@@ -39,14 +39,14 @@ void	check_texture_amount(t_parse *texture)
 
 void	texture_path(t_parse *texture, char **file)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	ft_memset(texture, 0, sizeof(t_parse));
 	while (file[i])
 	{
 		if (jump_space(file[i]) == NULL)
-			continue;
+			continue ;
 		if (ft_strncmp(jump_space(file[i]), "NO", 2) == 0)
 			texture->N_textures++;
 		if (ft_strncmp(jump_space(file[i]), "SO", 2) == 0)

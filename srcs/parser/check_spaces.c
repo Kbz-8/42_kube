@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:58:26 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/09 17:24:17 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 14:13:29 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	valid_spaces(char **file, int i, int j)
 		return (true);
 	if (file[i] == NULL)
 		return (true);
-	if (j == (int)ft_strlen(file[i]))
+	if (j >= (int)ft_strlen(file[i]))
 		return (true);
 	return (file[i][j] == '1' || file[i][j] == ' ' || file[i][j] == '\n' || \
 	file[i][j] == '\0');
@@ -38,7 +38,7 @@ bool	valid_floors(char **file, int i, int j)
 	return (file[i][j] != ' ' && file[i][j] != '\n' && file[i][j] != '\0');
 }
 
-bool	check_char_validity(char **file, int i, int j, bool (*func)(char **,int,int))
+bool	char_valid(char **file, int i, int j, bool (*func)(char **, int, int))
 {
 	if (func(file, i + 1, j) && func(file, i - 1, j) && \
 	func(file, i, j + 1) && func(file, i, j - 1))
@@ -49,19 +49,21 @@ bool	check_char_validity(char **file, int i, int j, bool (*func)(char **,int,int
 
 bool	contain_invalid_chars(char **file)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
 	while (file[i])
 	{
+		if (file[i][0] == '\n')
+			break ;
 		while (file[i][j])
 		{
 			if (file[i][j] == ' ')
-				check_char_validity(file, i, j, &valid_spaces);
+				char_valid(file, i, j, &valid_spaces);
 			if (file[i][j] == '0' || is_dir_char(file[i][j]))
-				check_char_validity(file, i, j, &valid_floors);
+				char_valid(file, i, j, &valid_floors);
 			j++;
 		}
 		j = 0;

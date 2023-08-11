@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:43:56 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/09 17:10:02 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/11 14:11:15 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ t_world	*create_world(char **file)
 
 uint8_t	**get_map(char **file, size_t *size_x, size_t *size_y)
 {
-	int i;
+	int	i;
 
 	i = 0;
-
 	while (file[i] && is_texture_name(file[i]))
 		i++;
 	is_a_map(&file[i]);

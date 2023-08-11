@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:08:41 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 02:44:19 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:22:31 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <utils.h>
 
-float fix_ang(float a)
+float	fix_ang(float a)
 {
 	if (a < 0)
 		a += 2 * M_PI;
@@ -28,12 +28,12 @@ float	ft_fabs(float a)
 
 	i = *(long *)&a;
 	i &= ~(1u << 31);
-	return *(float *)&i;
+	return (*(float *)&i);
 }
 
 void	fswap(float *a, float *b)
 {
-	float tmp;
+	float	tmp;
 
 	tmp = *a;
 	*a = *b;
@@ -52,10 +52,10 @@ void	reverse_array(uint8_t arr[], int size)
 
 	i = 0;
 	while (i < size / 2)
-    {
-        tmp = arr[i];
-        arr[i] = arr[size - 1 - i];
-        arr[size - 1 - i] = tmp;
+	{
+		tmp = arr[i];
+		arr[i] = arr[size - 1 - i];
+		arr[size - 1 - i] = tmp;
 		i++;
-    }
+	}
 }

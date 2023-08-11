@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 03:31:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 13:05:19 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:08:56 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	draw_walls(t_renderer *r, t_dda *dda, t_ray *ray, t_player *player)
 	}
 }
 
-static void	draw_floor_ceiling(t_renderer* renderer, t_ray *ray)
+static void	draw_floor_ceiling(t_renderer *renderer, t_ray *ray)
 {
 	void	*mlx[2];
 	t_world	*w;
@@ -90,7 +90,7 @@ static void	draw_floor_ceiling(t_renderer* renderer, t_ray *ray)
 	{
 		j[0] += 0.1f;
 		j[1] = 1.0f - (1.0f - (((float)i / HEIGHT) - 0.5f)) * \
-			   			(1.0f - (((float)i / HEIGHT) - 0.5f));
+		(1.0f - (((float)i / HEIGHT) - 0.5f));
 		color[2] = (uint8_t)((w->floor.r - (w->floor.r / j[0])) * j[1]);
 		color[1] = (uint8_t)((w->floor.g - (w->floor.g / j[0])) * j[1]);
 		color[0] = (uint8_t)((w->floor.b - (w->floor.b / j[0])) * j[1]);
@@ -121,4 +121,3 @@ void	render(t_renderer *renderer, t_player *player)
 		ray.i--;
 	}
 }
-

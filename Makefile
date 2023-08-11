@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 16:45:49 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/09 13:54:50 by maldavid         ###   ########.fr        #
+#    Updated: 2023/08/11 14:18:15 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS	=	srcs/core/main.c  \
 			srcs/parser/get_path.c  \
 			srcs/parser/get_world.c  \
 			srcs/parser/parser_utils.c  \
+			srcs/parser/map_char_utils.c  \
 			srcs/parser/file_utils.c  \
 			srcs/parser/map_utils.c  \
 			srcs/parser/check_spaces.c  \
@@ -93,6 +94,6 @@ fclean:		clean
 re:			fclean all
 
 norminette:
-	@norminette | grep Error | wc -l
+	@norminette srcs | grep Error | wc -l
 
 .PHONY:		all clean fclean re norminette libft mlx
