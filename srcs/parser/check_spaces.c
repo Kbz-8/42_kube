@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:58:26 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 15:12:50 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 15:40:42 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static bool	valid_floors(char **file, int i, int j)
 	return (file[i][j] != ' ' && file[i][j] != '\n' && file[i][j] != '\0');
 }
 
-static bool	char_valid(char **file, int i, int j, bool (*func)(char **, int, int))
+static bool	char_valid(char **file, int i, int j, \
+						bool (*func)(char **, int, int))
 {
 	if (func(file, i + 1, j) && func(file, i - 1, j) && \
 	func(file, i, j + 1) && func(file, i, j - 1))
