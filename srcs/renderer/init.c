@@ -6,13 +6,14 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:45 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 12:30:38 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:15:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <memory.h>
 #include <renderer.h>
+#include <libft.h>
 
 static void	init_platform(t_platform *plat)
 {

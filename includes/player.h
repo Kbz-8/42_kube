@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 10:04:24 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/12 14:11:10 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:47:15 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_player
 	float	angle;
 }	t_player;
 
-void	init_player(t_player *player);
+typedef struct s_world	t_world;
+
+void	init_player(t_player *player, t_world *world);
 
 #endif
