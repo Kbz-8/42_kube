@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:10:26 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 02:44:07 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:11:02 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include <stdint.h>
 
-typedef struct	s_vec2
+typedef struct s_vec2
 {
 	float	x;
 	float	y;

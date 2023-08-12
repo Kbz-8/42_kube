@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 12:59:07 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:12:12 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define HEIGHT					720
 # define DEG_TO_RAD				0.0174533
 
-typedef struct	s_dda	t_dda;
+typedef struct s_dda	t_dda;
 
-typedef struct	s_textures_files
+typedef struct s_textures_files
 {
 	char	*north;
 	char	*south;
@@ -35,19 +35,19 @@ typedef struct	s_textures_files
 	char	*east;
 }	t_textures_files;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	void	*img;
 }	t_texture;
 
-typedef struct	s_color
+typedef struct s_color
 {
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
 }	t_color;
 
-typedef struct	s_world
+typedef struct s_world
 {
 	t_color	ceiling;
 	t_color	floor;
@@ -62,7 +62,7 @@ typedef struct s_platform
 	void	*win;
 }	t_platform;
 
-typedef struct	s_renderer
+typedef struct s_renderer
 {
 	t_texture	tex[4];
 	t_world		*world;

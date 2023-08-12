@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 10:04:24 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/02 15:26:03 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:11:10 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <utils.h>
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_vec2	pos;
 	t_vec2	left;
