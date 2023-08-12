@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 15:14:39 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 15:25:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,37 @@ bool	is_a_map(char **file)
 	return (true);
 }
 
+int	longest_line(char **file)
+{
+	int i;
+	int max;
+
+	i = 0;
+	max = 0;
+	while (file[i])
+	{
+		if (max < (int)ft_strlen(file[i]))
+			max = (int)ft_strlen(file[i]);
+		i++;
+	}
+	return (max);
+}
+
 uint8_t	**cut_end_map(char **file, int width)
 {
 	int		i;
 	uint8_t	**map;
+	int max;
 
+	max = longest_line(file);
 	i = 0;
 	map = alloc(width * (sizeof(uint8_t *)));
 	while (i < width)
 	{
-		map[i] = (uint8_t *)ft_strdup(file[i]);
+		map[i] = alloc(sizeof(char) * (max + 1));
+		ft_strcpy((char *)map[i], file[i]);
+		while ((int)ft_strlen((char *)map[i]) < max)
+			map[i][ft_strlen((char *)map[i])] = '0';
 		i++;
 	}
 	return (map);

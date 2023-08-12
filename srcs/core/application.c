@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 02:58:41 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 23:25:31 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:47:34 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_application(t_application *app, t_textures_files *tex, t_world *w)
 	t_renderer	*renderer;
 	t_platform	*plat;
 
-	init_player(&app->player);
+	init_player(&app->player, w);
 	ft_memset(app->events_states, 0, sizeof(app->events_states));
 	renderer = init_renderer(tex, w);
 	plat = renderer->plat;
