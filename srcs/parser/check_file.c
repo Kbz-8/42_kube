@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 22:07:20 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/11 14:11:36 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 14:12:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ bool	in_order(char **file)
 
 void	check_texture_amount(t_parse *texture)
 {
-	if (texture->N_textures != 1 || texture->S_textures != 1)
+	if (texture->n_textures != 1 || texture->s_textures != 1)
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
-	if (texture->E_textures != 1 || texture->W_textures != 1)
+	if (texture->e_textures != 1 || texture->w_textures != 1)
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
-	if (texture->C_color != 1 || texture->F_color != 1)
+	if (texture->c_color != 1 || texture->f_color != 1)
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 }
 
@@ -48,17 +48,17 @@ void	texture_path(t_parse *texture, char **file)
 		if (jump_space(file[i]) == NULL)
 			continue ;
 		if (ft_strncmp(jump_space(file[i]), "NO", 2) == 0)
-			texture->N_textures++;
+			texture->n_textures++;
 		if (ft_strncmp(jump_space(file[i]), "SO", 2) == 0)
-			texture->S_textures++;
+			texture->s_textures++;
 		if (ft_strncmp(jump_space(file[i]), "WE", 2) == 0)
-			texture->W_textures++;
+			texture->w_textures++;
 		if (ft_strncmp(jump_space(file[i]), "EA", 2) == 0)
-			texture->E_textures++;
+			texture->e_textures++;
 		if (ft_strncmp(jump_space(file[i]), "F", 1) == 0)
-			texture->F_color++;
+			texture->f_color++;
 		if (ft_strncmp(jump_space(file[i]), "C", 1) == 0)
-			texture->C_color++;
+			texture->c_color++;
 	i++;
 	}
 	check_texture_amount(texture);

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:22:46 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/08 14:49:25 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 13:46:22 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static const char	*get_str_error(int error)
 		"too many arguments",
 		"invalid map name",
 		"no argument given",
-		"argument is not a file",
+		"argument is not a valid file",
 		"file configuration is invalid",
 		"map is invalid",
-		"a path is invalid"
+		"a path line is invalid"
 	};
 
 	return (errors[error]);
