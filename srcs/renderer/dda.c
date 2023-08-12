@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 08:32:43 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/09 10:43:56 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:35:53 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void	setup_vert_dda(t_renderer *r, t_player *p, t_dda *dda, t_ray *ray)
 {
 	dda->distance.x = 100000;
-	dda->i = r->world->map_x_size;
+	dda->i = r->world->map_x_size + 100;
 	dda->tan = tan(ray->ang);
 	dda->run = true;
 	if (cos(ray->ang) < -0.001)
@@ -45,7 +45,7 @@ static void	setup_vert_dda(t_renderer *r, t_player *p, t_dda *dda, t_ray *ray)
 static void	setup_hori_dda(t_renderer *r, t_player *p, t_dda *dda, t_ray *ray)
 {
 	dda->distance.y = 100000;
-	dda->i = r->world->map_y_size;
+	dda->i = r->world->map_y_size + 100;
 	dda->tan = 1 / tan(ray->ang);
 	dda->run = true;
 	if (sin(ray->ang) > 0.001)
