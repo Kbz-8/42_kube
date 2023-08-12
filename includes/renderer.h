@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:39:53 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/12 14:12:12 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:23:57 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ typedef struct s_world
 	uint8_t	**map;
 	size_t	map_x_size;
 	size_t	map_y_size;
+	size_t	player_init_x;
+	size_t	player_init_y;
+	char	player_orientation;
 }	t_world;
 
 typedef struct s_platform
