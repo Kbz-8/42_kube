@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:43:56 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 14:34:35 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 14:35:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 int	get_pos(char **file, bool x)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (file[i])
 	{
-		while(file[i][j])
+		while (file[i][j])
 		{
 			if (is_dir_char(file[i][j]))
 				return (x * j + !x * i);
@@ -49,7 +49,8 @@ t_world	*create_world(char **file)
 		i++;
 	world->player_init_y = get_pos(&file[i], false);
 	world->player_init_x = get_pos(&file[i], true);
-	world->player_orientation = file[world->player_init_y + i][world->player_init_x];
+	world->player_orientation = file[world->player_init_y + i] \
+	[world->player_init_x];
 	return (world);
 }
 
