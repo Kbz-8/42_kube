@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:10:52 by maldavid          #+#    #+#             */
-/*   Updated: 2023/04/25 15:12:57 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:01:16 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 #include <renderer/core/render_core.h>
 #include <array>
 #include <utils/endian.h>
+#include <core/errors.h>
 
 namespace mlx::core
 {
+	Application::Application() : _in(std::make_unique<Input>())
+	{
+		if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
+			core::error::report(e_kind::fatal_error, "SDL error : unable to init all subsystems : %s", SDL_GetError());
+	}
+
 	void Application::run() noexcept
 	{
 		while(_in->is_running())
@@ -51,5 +58,10 @@ namespace mlx::core
         vkDeviceWaitIdle(Render_Core::get().getDevice().get());
 		Texture* texture = static_cast<Texture*>(ptr);
 		texture->destroy();
+	}
+
+	Application::~Application()
+	{
+		SDL_Quit();
 	}
 }
