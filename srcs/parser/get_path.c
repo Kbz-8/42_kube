@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:46:05 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 16:10:10 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 16:33:29 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	check_after_path(char *str, char *path)
 		report(FATAL_ERROR, INVALID_PATH);
 	if (str[2] != ' ')
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
-	if (jump_space(jump_space(str + 2) + ft_strlen(path))[0] != '\n')
+	if (*jump_space(jump_space(jump_space(str) + 2) + ft_strlen(path)) != '\n')
 		report(FATAL_ERROR, INVALID_CONFIG_FILE);
 }
 
