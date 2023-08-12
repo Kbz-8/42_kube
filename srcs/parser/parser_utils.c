@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 22:52:53 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/11 14:11:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 16:02:17 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,7 @@ bool	ft_isnumber(char *str)
 			return (false);
 		i++;
 	}
-	if (str[i] == 0)
-		return (true);
-	if (str[i + 1] == 0)
-		return (true);
-	else
+	if (jump_space(str)[0] == '\n' || jump_space(str)[0] == '\0')
 		return (false);
+	return (true);
 }
