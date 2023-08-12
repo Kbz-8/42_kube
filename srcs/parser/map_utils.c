@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 14:39:11 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 15:14:39 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 
 	i = 0;
 	j = 0;
-	*size_y = 0;
+	*size_y = 1;
 	while (file[i] && is_map_component(file[i]))
 	{
-		*size_x = 0;
+		*size_x = 1;
 		while (file[i][j])
 		{
 			if (file[i][j] == '\n')

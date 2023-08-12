@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:58:26 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/11 14:13:29 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 15:12:50 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdbool.h>
 #include <parser.h>
 
-bool	valid_spaces(char **file, int i, int j)
+static bool	valid_spaces(char **file, int i, int j)
 {
 	if (i < 0 || j < 0)
 		return (true);
@@ -27,7 +27,7 @@ bool	valid_spaces(char **file, int i, int j)
 	file[i][j] == '\0');
 }
 
-bool	valid_floors(char **file, int i, int j)
+static bool	valid_floors(char **file, int i, int j)
 {
 	if (i < 0 || j < 0)
 		return (false);
@@ -38,7 +38,7 @@ bool	valid_floors(char **file, int i, int j)
 	return (file[i][j] != ' ' && file[i][j] != '\n' && file[i][j] != '\0');
 }
 
-bool	char_valid(char **file, int i, int j, bool (*func)(char **, int, int))
+static bool	char_valid(char **file, int i, int j, bool (*func)(char **, int, int))
 {
 	if (func(file, i + 1, j) && func(file, i - 1, j) && \
 	func(file, i, j + 1) && func(file, i, j - 1))

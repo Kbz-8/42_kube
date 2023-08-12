@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:04:48 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/11 14:26:34 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 15:13:20 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*fetch_line(char **file, char *target)
 	return (NULL);
 }
 
-char	**create_map_buffer(char *path)
+static char	**create_map_buffer(char *path)
 {
 	char	*buffer;
 	char	**file;
