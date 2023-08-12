@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 14:19:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 14:39:11 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ bool	is_a_map(char **file)
 	{
 		if (file[i][0] == '\n')
 			break ;
-		while (file[i][j])
+		if (jump_space(file[i])[0] == '\n')
+			report(FATAL_ERROR, INVALID_MAP);
+		while (file[i][j] && is_map_character(file[i][j]))
 		{
-			if (!is_map_character(file[i][j]))
-				return (false);
 			if (is_dir_char(file[i][j]))
 				count++;
 			j++;
