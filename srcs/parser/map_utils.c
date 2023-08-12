@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/11 14:20:42 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 14:19:51 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 		{
 			if (file[i][j] == '\n')
 				file[i][j] = 0;
+			if (file[i][j] == ' ')
+				file[i][j] = '0';
 			j++;
 			(*size_x)++;
 		}
