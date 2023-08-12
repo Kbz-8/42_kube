@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:05:54 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/12 15:25:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/12 15:33:05 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,15 @@ int	longest_line(char **file)
 	return (max);
 }
 
-uint8_t	**cut_end_map(char **file, int width)
+uint8_t	**cut_end_map(char **file, int width, size_t *x, size_t *y)
 {
 	int		i;
 	uint8_t	**map;
 	int max;
 
 	max = longest_line(file);
+	*x = max;
+	*y = width;
 	i = 0;
 	map = alloc(width * (sizeof(uint8_t *)));
 	while (i < width)
@@ -88,10 +90,8 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 
 	i = 0;
 	j = 0;
-	*size_y = 1;
 	while (file[i] && is_map_component(file[i]))
 	{
-		*size_x = 1;
 		while (file[i][j])
 		{
 			if (file[i][j] == '\n')
@@ -99,11 +99,9 @@ uint8_t	**convert_map(char **file, size_t *size_x, size_t *size_y)
 			if (file[i][j] == ' ')
 				file[i][j] = '0';
 			j++;
-			(*size_x)++;
 		}
 		j = 0;
 		i++;
-		(*size_y)++;
 	}
-	return (cut_end_map(file, i));
+	return (cut_end_map(file, i, size_x, size_y));
 }
