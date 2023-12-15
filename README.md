@@ -1,10 +1,2 @@
-# 42_kube by maldavid and vavaas
+# 42_kube by maldavid and vvaas
 kube ? ;)
-
------TODO-----
-
-Check pas si la map est fermée
-
-Check pas la validité des path/couleurs
-
-Vavaas : ne plus être mauvais
